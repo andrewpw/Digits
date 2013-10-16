@@ -19,6 +19,8 @@ public class ContactFormData {
   public String telephone = "";
   /**The id number.*/
   public long id;
+  /**The address.*/
+  public String address;
   
   /**
    * No argument constructor for this class.
@@ -36,6 +38,7 @@ public class ContactFormData {
     this.firstName = contact.getFirst();
     this.lastName = contact.getLast();
     this.telephone = contact.getTel();
+    this.address = contact.getAddress();
   }
   
   /**
@@ -56,6 +59,10 @@ public class ContactFormData {
     
     if (telephone == null || telephone.length() == 0) {
       errors.add(new ValidationError("telephone", "Telephone is required."));
+    }
+    
+    if (address == null || address.length() == 0) {
+      errors.add(new ValidationError("address", "Address is required."));
     }
     
     if (telephone.length() != NUM_TELEPHONE_DIGITS) {

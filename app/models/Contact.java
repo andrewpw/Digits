@@ -12,19 +12,38 @@ public class Contact {
   private String lastName;
   private String telephone;
   private String telHref;
+  private String address;
   
   /**
    * Public constructor for setting the first name last name and telephone number.
-   * @param id the ID
    * @param firstName2 the first name
    * @param lastName2 the last name
    * @param telephone2 the telephone number
+   * @param id the ID
+   * @param address the address
    */
-  public Contact(String firstName2, String lastName2, String telephone2, long id) {
+  public Contact(String firstName2, String lastName2, String telephone2, long id, String address) {
     this.firstName = firstName2;
     this.lastName = lastName2;
     this.telephone = telephone2;
     this.id = id;
+    this.address = address;
+  }
+  
+  /**
+   * Returns the address.
+   * @return address the address
+   */
+  public String getAddress() {
+    return address;
+  }
+
+  /**
+   * Sets the address.
+   * @param address to set
+   */
+  public void setAddress(String address) {
+    this.address = address;
   }
 
   /**

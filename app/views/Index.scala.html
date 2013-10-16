@@ -8,11 +8,13 @@
          <th>First</th>
          <th>Last</th>
          <th>Telephone</th>
+         <th>Address</th>
        </tr>
        @for(contact <- cList){
        <tr>
          <td>@contact.getFirst()</td><td>@contact.getLast()</td>
          <td><a href = "@contact.telToString()">@contact.getTel()</a></td>
+         <td>@contact.getAddress()</td>
          <td><a href="@routes.Application.newContact(contact.getId())">Edit</a></td>
        </tr>
        }
