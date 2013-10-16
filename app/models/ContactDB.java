@@ -37,6 +37,14 @@ public class ContactDB {
   }
   
   /**
+   * deletes a contact.
+   * @param id the id of the contact to delete
+   */
+  public static void deleteContact(long id) {
+    cdForm.remove(id);
+  }
+  
+  /**
    * returns the list of contacts.
    * @return cdForm the list of contacts
    */

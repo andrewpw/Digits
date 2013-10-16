@@ -33,6 +33,17 @@ public class Application extends Controller {
   }
   
   /**
+   * 
+   * @param id the id to delete
+   * @return New Contact page with the contact to delete
+   */
+  public static Result deleteContact(long id) {
+    //Form<ContactFormData> formData = Form.form(ContactFormData.class);
+    ContactDB.deleteContact(id);
+    return ok(Index.render(ContactDB.getContacts()));
+  }
+  
+  /**
    * Posts input from a contact form.
    * @return NewContact page with a form on success.
    *         NewContact page with a form and error message on failure
