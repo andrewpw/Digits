@@ -1,4 +1,4 @@
-![screenshot](https://raw.github.com/andrewpw/surferpedia/master/doc/Digits.png)
+![screenshot](https://raw.github.com/andrewpw/Digits/Attempt-1/doc/Digits.png)
 
 Overview
 --------
