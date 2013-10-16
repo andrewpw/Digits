@@ -5,6 +5,10 @@
 @Main("New Contact") {
    <div class="container">
      @form(routes.Application.postContact(), 'class -> "form-horizontal"){
+       <input type = "hidden"
+              name = "@contactForm("id").name"
+              id = "@contactForm("id").id"
+              value = "@contactForm("id").value">
        <div class = "form-group @if(contactForm("firstName").hasErrors) {has-error}">
          <label class = "col-sm-2 control-label">First</label>
          <div class = "col-sm-10">
@@ -30,7 +34,7 @@
        <div class = "form-group @if(contactForm("telephone").hasErrors) {has-error}">
          <label class = "col-sm-2 control-label">Telephone</label>
          <div class = "col-sm-10">
-           <input tyoe ="tel" class = "form-control" id="tel" placeholder="Telephone"
+           <input type ="tel" class = "form-control" id="tel" placeholder="Telephone"
                   name = "@contactForm("telephone").name"
                   id = "@contactForm("telephone").id"
                   value = "@contactForm("telephone").value"

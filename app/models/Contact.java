@@ -7,6 +7,7 @@ package models;
  */
 public class Contact {
 
+  private long id;
   private String firstName;
   private String lastName;
   private String telephone;
@@ -14,21 +15,31 @@ public class Contact {
   
   /**
    * Public constructor for setting the first name last name and telephone number.
-   * @param firstName2
-   * @param lastName2
-   * @param telephone2
+   * @param id the ID
+   * @param firstName2 the first name
+   * @param lastName2 the last name
+   * @param telephone2 the telephone number
    */
-  public Contact(String firstName2, String lastName2, String telephone2) {
+  public Contact(String firstName2, String lastName2, String telephone2, long id) {
     this.firstName = firstName2;
     this.lastName = lastName2;
     this.telephone = telephone2;
+    this.id = id;
+  }
+
+  /**
+   * returns the id.
+   * @return id the ID
+   */
+  public long getId() {
+    return id;
   }
 
   /**
    * returns first name.
    * @return firstName
    */
-  public String getFirst(){
+  public String getFirst() {
     return firstName;
   }
   
@@ -37,7 +48,7 @@ public class Contact {
    * @return lastName
    *
    */
-  public String getLast(){
+  public String getLast() {
     return lastName;
   }
   
@@ -46,11 +57,15 @@ public class Contact {
    * @return telephone
    *
    */
-  public String getTel(){
+  public String getTel() {
     return telephone;
   }
   
-  public String telToString(){
+  /**
+   * returns a linkable form of the telephone number.
+   * @return telHref the telephone number in link form
+   */
+  public String telToString() {
     telHref = "tel:+" + telephone.substring(0, 3) + telephone.substring(4, 7) + telephone.substring(8);
     return telHref;
   }

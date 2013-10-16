@@ -2,17 +2,41 @@ package views.formdata;
 
 import java.util.ArrayList;
 import java.util.List;
+import models.Contact;
 import play.data.validation.ValidationError;
 
 /**
- * Holds the data when a New Contact form is filled in
+ * Holds the data when a New Contact form is filled in.
  */
 public class ContactFormData {
   private static final int NUM_TELEPHONE_DIGITS = 12;
   
+  /**The first name.*/
   public String firstName = "";
+  /**The last name.*/
   public String lastName = "";
+  /**The telephone number.*/
   public String telephone = "";
+  /**The id number.*/
+  public long id;
+  
+  /**
+   * No argument constructor for this class.
+   */
+  public ContactFormData() {
+    
+  }
+  
+  /**
+   * Contsructor that takes a contact.
+   * @param contact the contact to add
+   */
+  public ContactFormData(Contact contact) {
+    this.id = contact.getId();
+    this.firstName = contact.getFirst();
+    this.lastName = contact.getLast();
+    this.telephone = contact.getTel();
+  }
   
   /**
    * Checks to make sure that all form fields are filled.

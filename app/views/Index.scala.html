@@ -11,7 +11,9 @@
        </tr>
        @for(contact <- cList){
        <tr>
-         <td>@contact.getFirst()</td><td>@contact.getLast()</td><td><a href = "@contact.telToString()">@contact.getTel()</a></td>
+         <td>@contact.getFirst()</td><td>@contact.getLast()</td>
+         <td><a href = "@contact.telToString()">@contact.getTel()</a></td>
+         <td><a href="@routes.Application.newContact(contact.getId())">Edit</a></td>
        </tr>
        }
      </table>
