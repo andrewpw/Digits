@@ -26,11 +26,11 @@ public class ContactDB {
     
     if (fData.id == 0) {
       long id = cdForm.size() + 1;
-      contact = new Contact(fData.firstName, fData.lastName, fData.telephone, id);
+      contact = new Contact(fData.firstName, fData.lastName, fData.telephone, id, fData.telType);
       cdForm.put(id, contact);
     }
     else {
-      contact = new Contact(fData.firstName, fData.lastName, fData.telephone, fData.id);
+      contact = new Contact(fData.firstName, fData.lastName, fData.telephone, fData.id, fData.telType);
       cdForm.put(fData.id, contact);
     }
     return contact;

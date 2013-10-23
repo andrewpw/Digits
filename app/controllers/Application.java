@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.Map;
 import models.ContactDB;
 import play.data.Form;
 import play.mvc.Controller;
@@ -7,6 +8,7 @@ import play.mvc.Result;
 import views.formdata.ContactFormData;
 import views.html.Index;
 import views.html.NewContact;
+import views.formdata.TelephoneTypes;
 
 /**
  * Implements the controllers for this application.
@@ -29,7 +31,12 @@ public class Application extends Controller {
   public static Result newContact(long id) {
     ContactFormData data = (id == 0) ? new ContactFormData() : new ContactFormData(ContactDB.getContact(id));
     Form<ContactFormData> formData = Form.form(ContactFormData.class).fill(data);
-    return ok(NewContact.render(formData));
+    if (id == 0) {
+      return ok(NewContact.render(formData, TelephoneTypes.getTypes()));
+    }
+    else {
+      return ok(NewContact.render(formData, TelephoneTypes.getTypes(ContactDB.getContact(id).getTelType())));
+    }
   }
   
   /**
@@ -52,14 +59,14 @@ public class Application extends Controller {
     Form<ContactFormData> formData = Form.form(ContactFormData.class).bindFromRequest();
     if (formData.hasErrors()) {
       flash("error", "Please correct the form below.");
-      return badRequest(NewContact.render(formData));
+      return badRequest(NewContact.render(formData, TelephoneTypes.getTypes()));
     }
     else {
       ContactFormData data = formData.get();
       flash("success",
           String.format("Successfully added %s %s", data.firstName, data.lastName));
       ContactDB.add(data);
-      return ok(NewContact.render(formData));
+      return ok(NewContact.render(formData, TelephoneTypes.getTypes()));
     }
   }
 }

@@ -12,6 +12,7 @@ public class Contact {
   private String lastName;
   private String telephone;
   private String telHref;
+  private String telType;
   
   /**
    * Public constructor for setting the first name last name and telephone number.
@@ -19,12 +20,14 @@ public class Contact {
    * @param firstName2 the first name
    * @param lastName2 the last name
    * @param telephone2 the telephone number
+   * @param telType the telephone type
    */
-  public Contact(String firstName2, String lastName2, String telephone2, long id) {
+  public Contact(String firstName2, String lastName2, String telephone2, long id, String telType) {
     this.firstName = firstName2;
     this.lastName = lastName2;
     this.telephone = telephone2;
     this.id = id;
+    this.telType = telType;
   }
 
   /**
@@ -92,6 +95,14 @@ public class Contact {
    */
   public void setTel(String telephone) {
     this.telephone = telephone;
+  }
+
+  /**
+   * returns a string of the type of telephone.
+   * @return telType the type of telephone
+   */
+  public String getTelType() {
+    return telType;
   }
   
 }

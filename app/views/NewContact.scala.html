@@ -1,11 +1,20 @@
-@(contactForm: Form[views.formdata.ContactFormData])
+@(contactForm: Form[views.formdata.ContactFormData], telephoneTypeMap: Map[String, Boolean])
 
-@import helper._
+@import helper.form
 @import bootstrap3._
 
 @Main("New Contact") {
    <div class="container">
    
+     @if(flash.containsKey("success")){
+       <div class = "well">
+         <div class="alert alert-success">@flash.get("success")</div>
+       </div>
+     } @if(flash.containsKey("error")){
+       <div class = "well">
+         <div class="alert alert-error">@flash.get("error")</div>
+       </div>
+     } 
      @form(routes.Application.postContact(), 'class -> "form-horizontal"){
        <input type = "hidden"
               name = "@contactForm("id").name"
@@ -24,21 +33,17 @@
            label = "Telephone",
            placeholder = "Telephone",
            help = "Please enter a telephone number")
+     @select(contactForm("telType"),
+           label = "Telephone Type",
+           optionMap = telephoneTypeMap,
+           isMultiple = false,
+           help = "Please select a telephone type")
      </div>
        <div class = "form-group">
          <div class = "col-sm-offset-2 col-sm-10">
            <button type = "submit" class = "btn btn default">Add</button>
          </div>
     </div>   
-         @if(flash.containsKey("success")){
-         <div class = "well">
-           <div class="alert alert-success">@flash.get("success")</div>
-         </div>
-         } @if(flash.containsKey("error")){
-         <div class = "well">
-             <div class="alert alert-error">@flash.get("error")</div>
-         </div>
-         } 
      }
    </div>
 }

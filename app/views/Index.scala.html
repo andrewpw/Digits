@@ -13,6 +13,7 @@
        <tr>
          <td>@contact.getFirst()</td><td>@contact.getLast()</td>
          <td><a href = "@contact.telToString()">@contact.getTel()</a></td>
+         <td>@contact.getTelType()</td>
          <td><a href="@routes.Application.newContact(contact.getId())" class="btn btn-warning">Edit</a></td>
          <td><a href="@routes.Application.deleteContact(contact.getId())" class="btn btn-danger">Delete</a></td>
        </tr>

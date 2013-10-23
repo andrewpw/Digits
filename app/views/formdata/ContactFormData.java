@@ -3,6 +3,7 @@ package views.formdata;
 import java.util.ArrayList;
 import java.util.List;
 import models.Contact;
+import views.formdata.TelephoneTypes;
 import play.data.validation.ValidationError;
 
 /**
@@ -19,6 +20,8 @@ public class ContactFormData {
   public String telephone = "";
   /**The id number.*/
   public long id;
+  /**The telephone type.*/
+  public String telType;
   
   /**
    * No argument constructor for this class.
@@ -36,6 +39,7 @@ public class ContactFormData {
     this.firstName = contact.getFirst();
     this.lastName = contact.getLast();
     this.telephone = contact.getTel();
+    this.telType = contact.getTelType();
   }
   
   /**
@@ -60,6 +64,10 @@ public class ContactFormData {
     
     if (telephone.length() != NUM_TELEPHONE_DIGITS) {
       errors.add(new ValidationError("telephone", "Telephone must be xxx-xxx-xxxx."));
+    }
+    
+    if (telType == null || telephone.length() == 0 || TelephoneTypes.isTypes(telType) == false) {
+      errors.add(new ValidationError("telType", "Telephone Type is required."));
     }
     
     return errors.isEmpty() ? null : errors;
