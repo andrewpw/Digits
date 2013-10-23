@@ -28,6 +28,7 @@ public class ContactFormData {
    */
   public ContactFormData() {
     
+    
   }
   
   /**
