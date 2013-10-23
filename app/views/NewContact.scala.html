@@ -29,15 +29,9 @@
            label = "Last Name",
            placeholder = "Last Name",
            help = "Please enter a last name")
-     @text(contactForm("telephone"),
-           label = "Telephone",
-           placeholder = "Telephone",
-           help = "Please enter a telephone number")
-     @select(contactForm("telType"),
-           label = "Telephone Type",
-           optionMap = telephoneTypeMap,
-           isMultiple = false,
-           help = "Please select a telephone type")
+     @telephone(contactForm("telephone"),
+                contactForm("telType"),
+                optionMap = telephoneTypeMap)
      </div>
        <div class = "form-group">
          <div class = "col-sm-offset-2 col-sm-10">
