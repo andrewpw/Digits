@@ -16,11 +16,9 @@
        </div>
      } 
      @form(routes.Application.postContact(), 'class -> "form-horizontal"){
-       <input type = "hidden"
-              name = "@contactForm("id").name"
-              id = "@contactForm("id").id"
-              value = "@contactForm("id").value">
+   
    <div class = "well">
+     @hidden(contactForm("id"))
      @text(contactForm("firstName"),
            label = "First Name",
            placeholder = "First Name",
