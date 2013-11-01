@@ -4,8 +4,11 @@
 
 # Home page
 GET     /                           controllers.Application.index()
-GET     /newcontact                 controllers.Application.newContact(id: Long ?= 0)
-GET     /delete                     controllers.Application.deleteContact(id: Long ?= 0)
+GET     /shoes                      controllers.Application.shoes()
+GET     /profile                    controllers.Application.profile(username: String)
+POST    /                           controllers.Application.postLogin()
+GET     /newcontact                 controllers.Application.newContact(username: String ?= "")
+GET     /delete                     controllers.Application.deleteContact(username: String ?= "")
 POST    /newcontact                 controllers.Application.postContact()
 
 # Map static resources from the /public folder to the /assets URL path

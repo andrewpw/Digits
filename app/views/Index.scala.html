@@ -1,23 +1,71 @@
-@(cList: List[Contact])
+@(loggedIn: Boolean, user: String)
+@import bootstrap3.navbar
 
 @Main("Home") {
-   <div class="container">
-     <h1>CURRENT CONTACTS</h1>
-     <table class= "table table-striped table-bordered">
-       <tr>
-         <th>First</th>
-         <th>Last</th>
-         <th>Telephone</th>
-       </tr>
-       @for(contact <- cList){
-       <tr>
-         <td>@contact.getFirst()</td><td>@contact.getLast()</td>
-         <td><a href = "@contact.telToString()">@contact.getTel()</a></td>
-         <td>@contact.getTelType()</td>
-         <td><a href="@routes.Application.newContact(contact.getId())" class="btn btn-warning">Edit</a></td>
-         <td><a href="@routes.Application.deleteContact(contact.getId())" class="btn btn-danger">Delete</a></td>
-       </tr>
-       }
-     </table>
-   </div>
+@navbar(user, loggedIn, "Home")
+<div class="row">
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="carousel-container">
+    <div class="outer">
+       <div id="carousel-example-generic" class="carousel slide">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+      </ol>
+    
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+          
+          <div class="item active">
+            <div class="img-one" style = "background-image: 
+              url('http://www.bollyberg.com/wp-content/uploads/2013/02/Men-Dress-Shirts.jpg')"></div>
+            <div class="carousel-caption">
+              <p class="pic-caption">Shirts</p>
+            </div>
+          </div>
+          
+          <div class="item">
+            <div class="img-one" style = "background-image: 
+              url('http://www.gap.com/products/res/mainimg/the-vintage-khaki-standard-fit-chino-tar.jpg')"></div>
+            <div class="carousel-caption">
+              <p class="pic-caption">Pants</p>
+            </div>
+          </div>
+          
+          <div class="item">
+            <div class="img-one" style = "background-image: 
+              url('http://www.manalive.com/images/products/10295901/ma/10295901_black_new_era_l.a._lakers_nba__fitted_cap1.jpg')">
+            </div>
+            <div class="carousel-caption">
+              <p class="pic-caption">Hats</p>
+            </div>
+          </div>
+          
+          <div class="item">
+            <div class="img-one" style = "background-image: url('http://cdn.yoox.biz/44/44556676bj_13_n_f.jpg')"></div>
+            <div class="carousel-caption">
+              <p class="pic-caption">Shoes</p>
+            </div>
+          </div>
+          
+        </div>
+    
+    
+        <!-- Controls -->
+      <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+        <span class="icon-prev"></span>
+      </a>
+      <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+        <span class="icon-next"></span>
+      </a>
+    </div>
+    </div>
+    </div>
+  </div>
+</div>
 }

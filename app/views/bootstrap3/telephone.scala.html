@@ -1,8 +1,8 @@
-@(field: Field, field2: Field, optionMap: Map[String, Boolean])
+@(field: Field)
   
-  <div class="form-group @if(field.hasErrors) {has-error} @if(field2.hasErrors) {has-error}">
+  <div class="form-group @if(field.hasErrors) {has-error}">
     <label class="col-sm-2 control-label">Telephone</label>
-    <div class="col-sm-6">
+    <div class="col-sm-10">
       <input type="text" 
              class="form-control" 
              id="@field.id" 
@@ -13,19 +13,5 @@
       <span class="help-block">@{field.error.map { error => error.message }}</span>
     </div>
   
-    <div class="col-sm-4">
-      <select
-        class="form-control"
-        id="@field2.id"
-        name="@field2.name"
-        >
-        <option class="blank" value="">Please select a value</option>
-        @for((optionName, isSelected) <- optionMap) {
-          <option id="@optionName" value="@optionName" @if(isSelected) {selected}>@optionName</option>
-        }
-      </select>
-      <span class="help-block">"Telephone Type"</span>
-      <span class="help-block">@{field2.error.map { error => error.message }}</span>
-    </div>
   </div>
   

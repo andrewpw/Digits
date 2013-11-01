@@ -1,9 +1,10 @@
-@(contactForm: Form[views.formdata.ContactFormData], telephoneTypeMap: Map[String, Boolean])
+@(contactForm: Form[views.formdata.ContactFormData], user: String, loggedIn: Boolean)
 
 @import helper.form
 @import bootstrap3._
 
 @Main("New Contact") {
+  @navbar(user, loggedIn, "New Contact")
    <div class="container">
    
      @if(flash.containsKey("success")){
@@ -16,24 +17,63 @@
        </div>
      } 
      @form(routes.Application.postContact(), 'class -> "form-horizontal"){
-   
+   <div class = "col-sm-offset-1 col-sm-10 col-sm-offset-1">
    <div class = "well">
      @hidden(contactForm("id"))
-     @text(contactForm("firstName"),
-           label = "First Name",
-           placeholder = "First Name",
-           help = "Please enter a first name")
-     @text(contactForm("lastName"),
-           label = "Last Name",
-           placeholder = "Last Name",
-           help = "Please enter a last name")
-     @telephone(contactForm("telephone"),
-                contactForm("telType"),
-                optionMap = telephoneTypeMap)
+     @text(contactForm("name"),
+           label = "name",
+           placeholder = "Name",
+           help = "Please enter your full name")
+     @text(contactForm("address"),
+           label = "Street Address",
+           placeholder = "Street Address",
+           help = "Please enter an address")
+     @text(contactForm("city"),
+           label = "City",
+           placeholder = "City, State",
+           help = "Please enter a City and state")
+     @text(contactForm("zipcode"),
+           label = "Zipcode",
+           placeholder = "Zipcode",
+           help = "Please enter a Zipcode")
+     @if(contactForm("username").value == ""){
+       @text(contactForm("username"),
+             label = "Username",
+             placeholder = "username",
+             help = "Please enter a Username")
+     } else {
+       @username(contactForm("username"),
+            label = "Username",
+            placeholder = "username",
+            help = "Username cannot be modified")
+            <input type = "hidden"
+              class = "form-control"
+              name = "@contactForm("username").name"
+              id = "@contactForm("username").id"
+              value = "@contactForm("username").value">
+     }
+     @if(contactForm("username").value == ""){
+       @text(contactForm("username"),
+             label = "Username",
+             placeholder = "username",
+             help = "Please enter a Username")
+     } else {
+       @username(contactForm(""),
+            label = "Password",
+            placeholder = "*******",
+            help = "Password cannot be modified")
+            <input type = "hidden"
+              class = "form-control"
+              name = "@contactForm("password").name"
+              id = "@contactForm("password").id"
+              value = "@contactForm("password").value">
+     }
+     @telephone(contactForm("telephone"))
+     </div>
      </div>
        <div class = "form-group">
          <div class = "col-sm-offset-2 col-sm-10">
-           <button type = "submit" class = "btn btn default">Add</button>
+           <button type = "submit" class = "btn btn default">Submit</button>
          </div>
     </div>   
      }

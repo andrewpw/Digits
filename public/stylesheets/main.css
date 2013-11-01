@@ -1,6 +1,29 @@
 .header{
-  background: url("../images/header.JPG");
+  background: url("../images/storeheader.JPG");
   background-size: cover;
   background-position: center;
   height: 250px;
+}
+
+.img-one{
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 400px;
+}
+
+.carousel-indicators .active{
+  background-color: #AFFD74;
+}
+
+.carousel-indicators li {
+  border: 1px solid #AFFD74;
+}
+
+.carousel-caption{
+  color: #AFFD74;
+}
+
+.login{
+  padding-top: 10px;
 }

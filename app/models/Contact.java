@@ -8,11 +8,14 @@ package models;
 public class Contact {
 
   private long id;
-  private String firstName;
-  private String lastName;
+  private String name;
   private String telephone;
   private String telHref;
-  private String telType;
+  private String address;
+  private String city;
+  private String zipcode;
+  private String username;
+  private String password;
   
   /**
    * Public constructor for setting the first name last name and telephone number.
@@ -22,12 +25,16 @@ public class Contact {
    * @param telephone2 the telephone number
    * @param telType the telephone type
    */
-  public Contact(String firstName2, String lastName2, String telephone2, long id, String telType) {
-    this.firstName = firstName2;
-    this.lastName = lastName2;
-    this.telephone = telephone2;
+  public Contact(String name, String address, String city, String zipcode, String telephone, String username,
+      String password, long id) {
+    this.name = name;
+    this.address = address;
+    this.city = city;
+    this.zipcode = zipcode;
+    this.telephone = telephone;
     this.id = id;
-    this.telType = telType;
+    this.username = username;
+    this.password = password;
   }
 
   /**
@@ -39,22 +46,29 @@ public class Contact {
   }
 
   /**
-   * returns first name.
-   * @return firstName
+   * returns name.
+   * @return name
    */
-  public String getFirst() {
-    return firstName;
+  public String getName() {
+    return name;
   }
   
-  /**
-   * returns last name.
-   * @return lastName
-   *
-   */
-  public String getLast() {
-    return lastName;
+  public void setName(String name) {
+    this.name = name;
   }
-  
+
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
+  public void setCity(String city) {
+    this.city = city;
+  }
+
+  public void setZipcode(String zipcode) {
+    this.zipcode = zipcode;
+  }
+
   /**
    * returns telephone num.
    * @return telephone
@@ -77,16 +91,8 @@ public class Contact {
    * sets the first name.
    * @param firstName the first name field to set
    */
-  public void setFirst(String firstName) {
-    this.firstName = firstName;
-  }
-
-  /**
-   * sets the last name.
-   * @param lastName the last name field to set
-   */
-  public void setLast(String lastName) {
-    this.lastName = lastName;
+  public void setFirst(String name) {
+    this.name = name;
   }
 
   /**
@@ -97,12 +103,30 @@ public class Contact {
     this.telephone = telephone;
   }
 
-  /**
-   * returns a string of the type of telephone.
-   * @return telType the type of telephone
-   */
-  public String getTelType() {
-    return telType;
+  public String getAddress() {
+    return address;
+  }
+
+  public String getCity() {
+    return city;
+  }
+
+  public String getZipcode() {
+    return zipcode;
+  }
+
+  public String getUsername() {
+    // TODO Auto-generated method stub
+    return username;
+  }
+
+  public String getPassword() {
+    // TODO Auto-generated method stub
+    return password;
+  }
+  
+  public void setPassword(String password) {
+    this.password = password;
   }
   
 }

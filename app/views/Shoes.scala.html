@@ -1,0 +1,22 @@
+@(contact: Contact)
+@import bootstrap3.navbar
+
+@Main("") {
+  @if(contact != null){
+   @navbar(contact.getUsername(), true, contact.getName())
+  } else {
+   @navbar("", false, "")
+  }
+   <div class="row">
+  </div>
+  @for(shoe <- ShoeDB.getShoeList()){
+   <div class="row">
+   <div class="col-md-4">
+      <div class="well">
+        <div class ="img-one" style = "background-image: 
+        url('@shoe.getUrl()')"></div>
+      </div>
+    </div>
+      }  
+  </div>
+}

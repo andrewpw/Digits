@@ -13,7 +13,7 @@ import views.formdata.ContactFormData;
  */
 public class ContactDB {
 
-  private static Map<Long, Contact> cdForm = new HashMap<>();
+  private static Map<String, Contact> cdForm = new HashMap<>();
   
   /**
    * adds a new contact to the list or updates the pre-existing contact if there is one.
@@ -26,22 +26,24 @@ public class ContactDB {
     
     if (fData.id == 0) {
       long id = cdForm.size() + 1;
-      contact = new Contact(fData.firstName, fData.lastName, fData.telephone, id, fData.telType);
-      cdForm.put(id, contact);
+      contact = new Contact(fData.name, fData.address, fData.city, fData.zipcode, fData.telephone, fData.username,
+          fData.password, id);
+      cdForm.put(fData.username, contact);
     }
     else {
-      contact = new Contact(fData.firstName, fData.lastName, fData.telephone, fData.id, fData.telType);
-      cdForm.put(fData.id, contact);
+      contact = new Contact(fData.name, fData.address, fData.city, fData.zipcode, fData.telephone, fData.username,
+          fData.password, fData.id);
+      cdForm.put(fData.username, contact);
     }
     return contact;
   }
   
   /**
    * deletes a contact.
-   * @param id the id of the contact to delete
+   * @param username the id of the contact to delete
    */
-  public static void deleteContact(long id) {
-    cdForm.remove(id);
+  public static void deleteContact(String username) {
+    cdForm.remove(username);
   }
   
   /**
@@ -61,6 +63,14 @@ public class ContactDB {
     Contact contact = cdForm.get(id);
     if (contact == null) {
       throw new RuntimeException("No contact with this ID exists: " + id);
+    }
+    return contact;
+  }
+
+  public static Contact getContact(String username) {
+    Contact contact = cdForm.get(username);
+    if (contact == null) {
+      return null;
     }
     return contact;
   }
