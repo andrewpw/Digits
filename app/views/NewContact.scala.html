@@ -1,4 +1,4 @@
-@(contactForm: Form[views.formdata.ContactFormData], user: String, loggedIn: Boolean)
+@(contactForm: Form[views.formdata.ContactFormData], user: String, loggedIn: Boolean, newLog: Boolean)
 
 @import helper.form
 @import bootstrap3._
@@ -36,7 +36,7 @@
            label = "Zipcode",
            placeholder = "Zipcode",
            help = "Please enter a Zipcode")
-     @if(contactForm("username").value == ""){
+     @if(!(contactForm("username").value == "")){
        @text(contactForm("username"),
              label = "Username",
              placeholder = "username",
@@ -52,11 +52,11 @@
               id = "@contactForm("username").id"
               value = "@contactForm("username").value">
      }
-     @if(contactForm("username").value == ""){
-       @text(contactForm("username"),
-             label = "Username",
-             placeholder = "username",
-             help = "Please enter a Username")
+     @if(!(contactForm("username").value == "")){
+       @text(contactForm("password"),
+             label = "Password",
+             placeholder = "password",
+             help = "Please enter a Password")
      } else {
        @username(contactForm(""),
             label = "Password",

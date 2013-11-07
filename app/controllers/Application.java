@@ -20,6 +20,7 @@ public class Application extends Controller {
 
   private static boolean loggedIn = false;
   private static String user = "";
+  private static boolean log = false;
   /**
    * Returns the home page. 
    * @return The resulting home page. 
@@ -42,16 +43,19 @@ public class Application extends Controller {
    * @return NewContact page with a form.
    */
   public static Result newContact(String username) {
+    
     ContactFormData data = (ContactDB.getContact(username) == null) ? new ContactFormData() : new 
         ContactFormData(ContactDB.getContact(username));
     if (ContactDB.getContact(username) != null) System.out.println("true");
     Form<ContactFormData> formData = Form.form(ContactFormData.class).fill(data);
-    //if (id == 0) {
-      //return ok(NewContact.render(formData, user, loggedIn));
-    //}
-    //else {
-      return ok(NewContact.render(formData, user, loggedIn));
-    //}
+    if (username.equals("")) {
+      log = true;
+      return ok(NewContact.render(formData, user, loggedIn, true));
+    }
+    else {
+      log = false;
+      return ok(NewContact.render(formData, user, loggedIn, false));
+    }
   }
   
   /**
@@ -74,14 +78,14 @@ public class Application extends Controller {
     Form<ContactFormData> formData = Form.form(ContactFormData.class).bindFromRequest();
     if (formData.hasErrors()) {
       flash("error", "Please correct the form below.");
-      return badRequest(NewContact.render(formData, user, loggedIn));
+      return badRequest(NewContact.render(formData, user, loggedIn, log));
     }
     else {
       ContactFormData data = formData.get();
       flash("success",
           String.format("Successfully added %s", data.name));
       ContactDB.add(data);
-      return ok(NewContact.render(formData, user, loggedIn));
+      return ok(NewContact.render(formData, user, loggedIn, log));
     }
   }
   

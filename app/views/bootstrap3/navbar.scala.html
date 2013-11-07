@@ -42,7 +42,8 @@
           
         </ul>
         <ul class= "nav navbar-nav pull-right">
-          <li class="@(" active".when(page=="NewContact"))"><a href="@routes.Application.newContact()">Sign Up</a></li>
+        
+          <li class="@(" active".when(page=="NewContact"))"><a href="@routes.Application.newContact("")">Sign Up</a></li>
           @if(loggedIn == false){
           <li><a data-toggle="dropdown" href="#">Login</a>
             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
