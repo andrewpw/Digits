@@ -12,6 +12,20 @@
   height: 400px;
 }
 
+.nav>li.disabled>a{
+  color:fff;
+  text-align: center;
+}
+
+.side{
+  padding-top: 120px;
+
+}
+
+.shoe-display{
+  text-align: center;
+}
+
 .carousel-indicators .active{
   background-color: #AFFD74;
 }

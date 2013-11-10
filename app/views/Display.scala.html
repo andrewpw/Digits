@@ -1,0 +1,28 @@
+@(loggedIn: Boolean, user: String, shoe: Shoes)
+@import bootstrap3.navbar
+
+@Main("Home") {
+  @navbar(user, loggedIn, "Home")
+  <div class = "container">
+    <div class ="row">
+     <div class="col-md-4 col-md-offset-4">
+       <div class = "well shoe-display">
+         <p>@shoe.getDescription()</p>
+       </div>
+     </div>
+     <div class ="col-md-4">
+       <a href="@routes.Application.shoppingCart(shoe.getName())" class="btn btn-inverse btn-lg" 
+       role="button">Add to Shopping Cart</a>
+     </div>
+    </div>
+    <div class = "row">
+      <div class="col-md-offset-4 col-md-4 col-md-offset-4">
+        <div class="well">
+          <div class ="img-one" style = "background-image: 
+          url('@shoe.getUrl()')"></div>
+        </div>
+       </div>
+     </div>
+   </div>
+    
+}

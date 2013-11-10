@@ -36,7 +36,8 @@
            label = "Zipcode",
            placeholder = "Zipcode",
            help = "Please enter a Zipcode")
-     @if(!(contactForm("username").value == "")){
+     @if(contactForm("username").value == null){
+     
        @text(contactForm("username"),
              label = "Username",
              placeholder = "username",
@@ -52,7 +53,7 @@
               id = "@contactForm("username").id"
               value = "@contactForm("username").value">
      }
-     @if(!(contactForm("username").value == "")){
+     @if(contactForm("username").value == null){
        @text(contactForm("password"),
              label = "Password",
              placeholder = "password",

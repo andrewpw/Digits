@@ -1,7 +1,4 @@
 package views.formdata;
-import java.util.HashMap;
-import java.util.Map;
-import models.Contact;
 import models.Shoes;
 
 

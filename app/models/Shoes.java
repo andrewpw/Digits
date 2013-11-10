@@ -10,6 +10,7 @@ public class Shoes {
   private String size;
   private char sex;
   private String url;
+  private int index;
   
   
   public Shoes(String brand, String model, String type, String description, float price, String size, char sex, 
@@ -63,4 +64,17 @@ public class Shoes {
   public String getUrl() {
     return url;
   }
+  
+  public int getIndex() {
+    return index;
+  }
+  
+  public void setIndex(int i) {
+    index = i;
+  }
+  
+  public String getName(){
+    return brand + model + size;
+  }
+  
 }

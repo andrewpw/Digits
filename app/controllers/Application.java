@@ -3,6 +3,7 @@ package controllers;
 import java.util.Map;
 import models.ContactDB;
 import models.ShoeDB;
+import models.ShoppingCartDB;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -12,6 +13,8 @@ import views.html.Index;
 import views.html.NewContact;
 import views.html.Profile;
 import views.html.Shoes;
+import views.html.Display;
+import views.html.ShoppingCart;
 
 /**
  * Implements the controllers for this application.
@@ -29,12 +32,40 @@ public class Application extends Controller {
     return ok(Index.render(loggedIn, user));
   }
   
+  public static Result checkout() {
+    return ok(Index.render(loggedIn, user));
+  }
+  
+  public static Result shoppingCart(String name) {
+    ShoppingCartDB.add(name);
+    return ok(ShoppingCart.render(loggedIn, user));
+  }
+  
   public static Result profile(String username) {
+    if(username == ""){
+      loggedIn = false;
+      user ="";
+      return ok(Index.render(loggedIn, user));  
+    }
     return ok(Profile.render(ContactDB.getContact(username)));
   }
   
-  public static Result shoes() {
-    return ok(Shoes.render(ContactDB.getContact(user)));
+  public static Result shoes(String type) {
+    if(type.equals("sort")){
+      ShoeDB.sortBySize();
+    }
+    else if(type.equals("price")){
+      ShoeDB.sortByPrice();
+    }
+    else if(type.equals("brand")){
+      ShoeDB.sortByBrand();
+    }
+    return ok(Shoes.render(type, ContactDB.getContact(user), 0));
+  }
+  
+  public static Result display(String name) {
+    models.Shoes shoe = ShoeDB.getShoes(name);
+    return ok(Display.render(loggedIn, user, shoe));
   }
   
   /**
