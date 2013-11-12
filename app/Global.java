@@ -20,6 +20,7 @@ public class Global extends GlobalSettings {
     ContactDB.add(data2);
     ContactDB.add(data3);
     ContactDB.add(data4);
+    UserInfoDB.addUserInfo("Andrew Pearson-Wood", "andrew@example.com", "password");
     UserInfoDB.addUserInfo("John Smith", "smith@example.com", "password");
   }
 
