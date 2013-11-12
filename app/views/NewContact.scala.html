@@ -1,9 +1,9 @@
-@(contactForm: Form[views.formdata.ContactFormData], telephoneTypeMap: Map[String, Boolean])
+@(contactForm: Form[views.formdata.ContactFormData], telephoneTypeMap: Map[String, Boolean], isLoggedIn: Boolean, userInfo: UserInfo)
 
 @import helper.form
 @import bootstrap3._
 
-@Main("New Contact") {
+@Main("New Contact", isLoggedIn, userInfo) {
    <div class="container">
    
      @if(flash.containsKey("success")){
