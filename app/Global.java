@@ -16,10 +16,10 @@ public class Global extends GlobalSettings {
     ContactFormData data2 = new ContactFormData(contact2);
     ContactFormData data3 = new ContactFormData(contact3);
     ContactFormData data4 = new ContactFormData(contact4);
-    ContactDB.add(data);
-    ContactDB.add(data2);
-    ContactDB.add(data3);
-    ContactDB.add(data4);
+    ContactDB.add(data, "smith@example.com");
+    ContactDB.add(data2, "smith@example.com");
+    ContactDB.add(data3, "andrew@example.com");
+    ContactDB.add(data4, "andrew@example.com");
     UserInfoDB.addUserInfo("Andrew Pearson-Wood", "andrew@example.com", "password");
     UserInfoDB.addUserInfo("John Smith", "smith@example.com", "password");
   }

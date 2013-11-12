@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.Map;
 import models.ContactDB;
+import models.UserInfo;
+import models.UserInfoDB;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -23,8 +25,11 @@ public class Application extends Controller {
    * Returns the home page. 
    * @return The resulting home page. 
    */
+  @Security.Authenticated(Secured.class)
   public static Result index() {
-    return ok(Index.render(ContactDB.getContacts(), Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
+    UserInfo userInfo = UserInfoDB.getUser(request().username());
+    String user = userInfo.getEmail();
+    return ok(Index.render(ContactDB.getContacts(user), Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
   }
   
   /**
@@ -34,13 +39,15 @@ public class Application extends Controller {
    */
   @Security.Authenticated(Secured.class)
   public static Result newContact(long id) {
-    ContactFormData data = (id == 0) ? new ContactFormData() : new ContactFormData(ContactDB.getContact(id));
+    UserInfo userInfo = UserInfoDB.getUser(request().username());
+    String user = userInfo.getEmail();
+    ContactFormData data = (id == 0) ? new ContactFormData() : new ContactFormData(ContactDB.getContact(user, id));
     Form<ContactFormData> formData = Form.form(ContactFormData.class).fill(data); 
     if (id == 0) {
       return ok(NewContact.render(formData, TelephoneTypes.getTypes(), Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
     }
     else {
-      return ok(NewContact.render(formData, TelephoneTypes.getTypes(ContactDB.getContact(id).getTelType()), Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
+      return ok(NewContact.render(formData, TelephoneTypes.getTypes(ContactDB.getContact(user, id).getTelType()), Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
     }
   }
     /**
@@ -84,9 +91,11 @@ public class Application extends Controller {
    */
     @Security.Authenticated(Secured.class)
   public static Result deleteContact(long id) {
+      UserInfo userInfo = UserInfoDB.getUser(request().username());
+      String user = userInfo.getEmail();
     //Form<ContactFormData> formData = Form.form(ContactFormData.class);
     ContactDB.deleteContact(id);
-    return ok(Index.render(ContactDB.getContacts(), Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
+    return ok(Index.render(ContactDB.getContacts(user), Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
   }
   
   /**
@@ -96,6 +105,8 @@ public class Application extends Controller {
    */
   @Security.Authenticated(Secured.class)
   public static Result postContact() {
+    UserInfo userInfo = UserInfoDB.getUser(request().username());
+    String user = userInfo.getEmail();
     Form<ContactFormData> formData = Form.form(ContactFormData.class).bindFromRequest();
     if (formData.hasErrors()) {
       flash("error", "Please correct the form below.");
@@ -105,7 +116,7 @@ public class Application extends Controller {
       ContactFormData data = formData.get();
       flash("success",
           String.format("Successfully added %s %s", data.firstName, data.lastName));
-      ContactDB.add(data);
+      ContactDB.add(data, user);
       return ok(NewContact.render(formData, TelephoneTypes.getTypes(), Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
     }
   }
