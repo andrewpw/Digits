@@ -8,7 +8,7 @@ import views.formdata.ContactFormData;
 public class Global extends GlobalSettings {
   
   public void onStart(Application app) {
-    Contact contact = new Contact("Bob", "Barker", "555-555-5555", 1, "Mobile");
+    Contact contact = new Contact("Bob", "Barker", "555-555-5555", 1, "Mobile"); 
     Contact contact2 = new Contact("Bill", "Murray", "555-555-5555", 2, "Home");
     Contact contact3 = new Contact("Bo", "Jackson", "555-555-5555", 3, "Work");
     Contact contact4 = new Contact("Babe", "Ruth", "555-555-5555", 4, "Mobile");
