@@ -14,7 +14,7 @@ public class Shoes {
   
   
   public Shoes(String brand, String model, String type, String description, float price, String size, char sex, 
-      String url){
+      String url, int index){
     this.brand = brand;
     this.model = model;
     this.type = type;
@@ -23,6 +23,7 @@ public class Shoes {
     this.size = size;
     this.sex = sex;
     this.url = url;
+    this.index = index;
   }
 
 

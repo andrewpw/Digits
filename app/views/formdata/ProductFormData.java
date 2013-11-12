@@ -17,6 +17,7 @@ public class ProductFormData {
   public String size;
   public char sex;
   public String url;
+  public int index;
   /**
    * 
    * No arguments constructor.
@@ -33,6 +34,7 @@ public class ProductFormData {
     this.size = shoes.getSize();
     this.sex = shoes.getSex();
     this.url = shoes.getUrl();
+    this.index = shoes.getIndex();
   }
   
 }
