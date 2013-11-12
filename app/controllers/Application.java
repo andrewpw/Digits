@@ -30,7 +30,7 @@ public class Application extends Controller {
    */
   public static Result newContact(long id) {
     ContactFormData data = (id == 0) ? new ContactFormData() : new ContactFormData(ContactDB.getContact(id));
-    Form<ContactFormData> formData = Form.form(ContactFormData.class).fill(data);
+    Form<ContactFormData> formData = Form.form(ContactFormData.class).fill(data); 
     if (id == 0) {
       return ok(NewContact.render(formData, TelephoneTypes.getTypes()));
     }
