@@ -1,28 +1,23 @@
-@*************************
- Simple Login template.
- 
- Takes a reverse route, the email field, and the password field from a form. 
- If form validation fails, then the fields will have Twitter Bootstrap error highlighting.
- Clients should set the "error" key in flash scope to provide feedback on errors. 
-**************************@
-
-@(reverseRoute: play.api.mvc.Call, emailField: Field, passwordField: Field)
+@(reverseRoute: play.api.mvc.Call, emailField: Field, passwordField: Field, nameField: Field)
 
 
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title">Please log in</h3>
+        <h3 class="panel-title">...Or Create A New Account</h3>
       </div>
       <div class="panel-body">
         @helper.form(reverseRoute, 'role -> "form") {
           <fieldset>
+            <div class="form-group @if(passwordField.hasErrors) {has-error}" >
+              <input id="@nameField.id" name="@nameField.name" value="@nameField.value.getOrElse("")" class="form-control" placeholder="Name" type="text">
+            </div>
             <div class="form-group @if(emailField.hasErrors) {has-error}" >
               <input id="@emailField.id" name="@emailField.name" value="@emailField.value.getOrElse("")" class="form-control" placeholder="E-mail" type="text">
             </div>
             <div class="form-group @if(passwordField.hasErrors) {has-error}" >
               <input id="@passwordField.id" name="@passwordField.name" value="@passwordField.value.getOrElse("")" class="form-control" placeholder="Password" type="password">
             </div>
-            <input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
+            <input class="btn btn-lg btn-success btn-block" type="submit" value="Create">
           </fieldset>
         }
          @if(flash.containsKey("error")) {

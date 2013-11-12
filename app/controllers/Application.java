@@ -9,6 +9,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.formdata.ContactFormData;
 import views.formdata.LoginFormData;
+import views.formdata.RegistrationFormData;
 import views.html.Index;
 import views.html.NewContact;
 import views.html.Profile;
@@ -56,7 +57,8 @@ public class Application extends Controller {
      */
     public static Result login() {
       Form<LoginFormData> formData = Form.form(LoginFormData.class);
-      return ok(Login.render("Login", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), formData));
+      Form<RegistrationFormData> regFormData = Form.form(RegistrationFormData.class);
+      return ok(Login.render("Login", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), formData, regFormData));
     }
   
     /**
@@ -72,15 +74,35 @@ public class Application extends Controller {
 
       // Get the submitted form data from the request object, and run validation.
       Form<LoginFormData> formData = Form.form(LoginFormData.class).bindFromRequest();
+      Form<RegistrationFormData> regFormData = Form.form(RegistrationFormData.class);
 
       if (formData.hasErrors()) {
         flash("error", "Login credentials not valid.");
-        return badRequest(Login.render("Login", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), formData));
+        return badRequest(Login.render("Login", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), formData, regFormData));
       }
       else {
         // email/password OK, so now we set the session variable and only go to authenticated pages.
         session().clear();
         session("email", formData.get().email);
+        return redirect(routes.Application.index());
+      }
+    }
+    
+    public static Result postRegistration() {
+
+      // Get the submitted form data from the request object, and run validation.
+      Form<RegistrationFormData> regFormData = Form.form(RegistrationFormData.class).bindFromRequest();
+      Form<LoginFormData> formData = Form.form(LoginFormData.class);
+
+      if (formData.hasErrors()) {
+        flash("error", "Login credentials not valid.");
+        return badRequest(Login.render("Login", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), formData, regFormData));
+      }
+      else {
+        // email/password OK, so now we set the session variable and only go to authenticated pages.
+        session().clear();
+        session("email", regFormData.get().email);
+        UserInfoDB.addUserInfo(regFormData.get().name, regFormData.get().email, regFormData.get().password);
         return redirect(routes.Application.index());
       }
     }

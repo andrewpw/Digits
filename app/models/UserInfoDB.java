@@ -55,4 +55,12 @@ public class UserInfoDB {
             &&
             getUser(email).getPassword().equals(password));
   }
+  
+  public static boolean canRegister(String name, String email, String password) {
+    return ((email != null) 
+        &&
+        (password != null) 
+        &&
+        (!isUser(email)));
+  }
 }
