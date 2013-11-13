@@ -13,4 +13,7 @@
          </div>
        </div>
    </div>
+   @if(!models.UserInfoDB.adminDefined()){
+     <div class = "alert alert-danger">No Admin Credetials Defined!</div>
+   }
 }
