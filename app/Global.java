@@ -6,7 +6,7 @@ import play.GlobalSettings;
 import play.Play;
 import views.formdata.ContactFormData;
 
-public class Global extends GlobalSettings {
+public class Global extends GlobalSettings { 
   
   public void onStart(Application app) {
     String adminEmail = Play.application().configuration().getString("digits.admin.email");
