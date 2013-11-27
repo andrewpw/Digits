@@ -19,7 +19,7 @@ public class ContactFormData {
   /**The telephone number.*/
   public String telephone = "";
   /**The id number.*/
-  public long id;
+  public long id = -1;
   /**The telephone type.*/
   public String telType;
   
@@ -42,6 +42,13 @@ public class ContactFormData {
     this.telType = contact.getTelType();
   }
   
+  public ContactFormData(String first, String last, String tel, String telType) {
+    this.firstName = first;
+    this.lastName = last;
+    this.telephone = tel;
+    this.telType = telType;
+  }
+
   /**
    * Checks to make sure that all form fields are filled.
    * @return null on success.

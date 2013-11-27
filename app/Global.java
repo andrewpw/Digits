@@ -12,11 +12,9 @@ public class Global extends GlobalSettings {
     String adminEmail = Play.application().configuration().getString("digits.admin.email");
     String adminPassword = Play.application().configuration().getString("digits.admin.password");
     UserInfoDB.defineAdmin("Administrator", adminEmail, adminPassword);
-    if(UserInfoDB.adminDefined()){
-      Contact contact = new Contact("Bob", "Barker", "555-555-5555", 1, "Mobile"); 
-      Contact contact2 = new Contact("Bill", "Murray", "555-555-5555", 2, "Home");
-      ContactFormData data = new ContactFormData(contact);
-      ContactFormData data2 = new ContactFormData(contact2);    
+    if(UserInfoDB.adminDefined() && UserInfoDB.getUser(adminEmail).getContacts().isEmpty()){ 
+      ContactFormData data = new ContactFormData("Bob", "Barker", "555-555-5555", "Mobile");
+      ContactFormData data2 = new ContactFormData("Bill", "Murray", "555-555-5555", "Home");    
       ContactDB.add(data, adminEmail);
       ContactDB.add(data2, adminEmail);
     }

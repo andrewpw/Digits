@@ -12,42 +12,49 @@ import views.formdata.ContactFormData;
  *
  */
 public class ContactDB {
-
-  private static Map<String, Map<Long, Contact>> cdForm = new HashMap<String, Map<Long, Contact>>();
   
   /**
    * adds a new contact to the list or updates the pre-existing contact if there is one.
    * @param fData the contact data form with the data
    * @return contact the new contact
    */
-  public static Contact add(ContactFormData fData, String user) {
+  public static void add(ContactFormData fData, String user) {
     
     Contact contact;
     
-    if (fData.id == 0) {
-      long id = cdForm.size() + 1;
-      contact = new Contact(fData.firstName, fData.lastName, fData.telephone, id, fData.telType);
-      if(!cdForm.containsKey(user)){
-        cdForm.put(user, new HashMap<Long, Contact>());
+    if (fData.id == -1) {
+      System.out.println("true");
+      contact = new Contact(fData.firstName, fData.lastName, fData.telephone, fData.telType);
+      UserInfo userInfo = UserInfo.find().where().eq("email", user).findUnique();
+      if(userInfo == null){
+        throw new RuntimeException("No user found");
       }
-      cdForm.get(user).put(id, contact);
+      userInfo.addContact(contact);
+      contact.setUserInfo(userInfo);
+      contact.save();
+      userInfo.save();
     }
-    else {
-      contact = new Contact(fData.firstName, fData.lastName, fData.telephone, fData.id, fData.telType);
-      if(!cdForm.containsKey(user)){
-        cdForm.put(user, new HashMap<Long, Contact>());
-      }
-      cdForm.get(user).put(fData.id, contact);
+    else{
+      System.out.println("false");
+      contact = Contact.find().byId(fData.id);
+      contact.setFirstName(fData.firstName);
+      contact.setLastName(fData.lastName);
+      contact.setTelephone(fData.telephone);
+      contact.setTelType(fData.telType);
+      contact.setTelHref(fData.telephone);
+      contact.save();
     }
-    return contact;
   }
   
   /**
    * deletes a contact.
    * @param id the id of the contact to delete
    */
-  public static void deleteContact(long id) {
-    cdForm.remove(id);
+  public static void deleteContact(long id, String user) {
+    UserInfo userInfo = UserInfo.find().where().eq("email", user).findUnique();
+    Contact contact = Contact.find().byId(id);
+    userInfo.deleteContact(contact);
+    //cdForm.remove(id);
   }
   
   /**
@@ -55,14 +62,17 @@ public class ContactDB {
    * @return cdForm the list of contacts
    */
   public static List<Contact> getContacts(String user) {
-    if(!isUser(user)){
+    UserInfo userInfo = UserInfo.find().where().eq("email", user).findUnique();
+    if (userInfo == null) {
       return null;
     }
-    return new ArrayList<>(cdForm.get(user).values());
+    else {
+      return userInfo.getContacts();
+    }
   }
   
   public static boolean isUser(String user){
-    return cdForm.containsKey(user);
+    return (UserInfo.find().where().eq("email", user).findUnique()) != null;
   }
   
   /**
@@ -71,13 +81,16 @@ public class ContactDB {
    * @return contact the Contact that was searched for
    */
   public static Contact getContact(String user, long id) {
-    if(!isUser(user)){
-      throw new RuntimeException("No contact with this username exists: " + user);
-    }
-    Contact contact = cdForm.get(user).get(id);
+    Contact contact = Contact.find().byId(id);
     if (contact == null) {
-      throw new RuntimeException("No contact with this ID exists: " + id);
+      throw new RuntimeException("No contact with this id exists: " + id);
     }
+    UserInfo userInfo = contact.getUserinfo();
+    
+    if(!isUser(userInfo.getEmail())){
+      throw new RuntimeException("Username incorrect match with contact " + user);
+    }
+    
     return contact;
   }
 }

@@ -42,9 +42,9 @@ public class Application extends Controller {
   public static Result newContact(long id) {
     UserInfo userInfo = UserInfoDB.getUser(request().username());
     String user = userInfo.getEmail();
-    ContactFormData data = (id == 0) ? new ContactFormData() : new ContactFormData(ContactDB.getContact(user, id));
+    ContactFormData data = (id == -1) ? new ContactFormData() : new ContactFormData(ContactDB.getContact(user, id));
     Form<ContactFormData> formData = Form.form(ContactFormData.class).fill(data); 
-    if (id == 0) {
+    if (id == -1) {
       return ok(NewContact.render(formData, TelephoneTypes.getTypes(), Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
     }
     else {
@@ -116,7 +116,7 @@ public class Application extends Controller {
       UserInfo userInfo = UserInfoDB.getUser(request().username());
       String user = userInfo.getEmail();
     //Form<ContactFormData> formData = Form.form(ContactFormData.class);
-    ContactDB.deleteContact(id);
+    ContactDB.deleteContact(id, user);
     return ok(Index.render(ContactDB.getContacts(user), Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
   }
   

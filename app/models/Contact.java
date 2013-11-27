@@ -1,12 +1,20 @@
 package models;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import play.db.ebean.Model;
+
 /**
  * Provides a model for Contact data.
  * @author Andrew
  *
  */
-public class Contact {
+@Entity
+public class Contact extends Model{
 
+  private static final long serialVersionUID = 1L;
+  @Id
   private long id;
   private String firstName;
   private String lastName;
@@ -14,20 +22,29 @@ public class Contact {
   private String telHref;
   private String telType;
   
+  @ManyToOne
+  private UserInfo userInfo;
+  
   /**
    * Public constructor for setting the first name last name and telephone number.
-   * @param id the ID
    * @param firstName2 the first name
    * @param lastName2 the last name
    * @param telephone2 the telephone number
    * @param telType the telephone type
    */
-  public Contact(String firstName2, String lastName2, String telephone2, long id, String telType) {
+  public Contact(String firstName2, String lastName2, String telephone2, String telType) {
     this.firstName = firstName2;
     this.lastName = lastName2;
     this.telephone = telephone2;
-    this.id = id;
     this.telType = telType;
+  }
+  /**
+   * Finds a contact
+   * @return the finder object for Contacts
+   */
+  public static Finder<Long, Contact> find(){
+    
+    return new Finder<Long, Contact>(Long.class, Contact.class);
   }
 
   /**
@@ -36,6 +53,43 @@ public class Contact {
    */
   public long getId() {
     return id;
+  }
+
+  public String getFirstName() {
+    return firstName;
+  }
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+  public String getLastName() {
+    return lastName;
+  }
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+  public String getTelephone() {
+    return telephone;
+  }
+  public void setTelephone(String telephone) {
+    this.telephone = telephone;
+  }
+  public String getTelHref() {
+    return telHref;
+  }
+  public void setTelHref(String telHref) {
+    this.telHref = telHref;
+  }
+  public UserInfo getUserinfo() {
+    return userInfo;
+  }
+  public void setUserInfo(UserInfo userInfo) {
+    this.userInfo = userInfo;
+  }
+  public void setId(long id) {
+    this.id = id;
+  }
+  public void setTelType(String telType) {
+    this.telType = telType;
   }
 
   /**
