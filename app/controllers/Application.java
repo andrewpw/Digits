@@ -27,7 +27,7 @@ public class Application extends Controller {
    * @return The resulting home page. 
    */
   @Security.Authenticated(Secured.class)
-  public static Result index() {
+  public static Result index() { 
     UserInfo userInfo = UserInfoDB.getUser(request().username());
     String user = userInfo.getEmail();
     return ok(Index.render(ContactDB.getContacts(user), Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
