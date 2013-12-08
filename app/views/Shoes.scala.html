@@ -46,8 +46,9 @@
     @if(types.equals("KidsHats")){
   
     }
-   @for(shoe <- ShoeDB.getShoeList()){
-   @if(shoe.getIndex() == 0){
+    @System.out.println(types)
+   @for((shoe, index) <- ShoeDB.getShoeList(types).zipWithIndex){
+   @if(index % 3 == 0){
     <div class="row">
     <div class="col-md-3 side">
       <div class="navbar navbar-inverse" role="navigation">
@@ -66,11 +67,14 @@
       <div class="well">
       <a href = "@routes.Application.display(shoe.getName())">
         <div class ="img-one" style = "background-image: 
-        url('@shoe.getUrl()')"></div>
+        url(@shoe.getUrl())"></div>
       </a>
       </div>
     </div>
-  }  
-  </div>
+    @if(index % 3 == 2){
+     </div>
+    }
+  }
+    
   </div>
 }

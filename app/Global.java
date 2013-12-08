@@ -22,21 +22,22 @@ public class Global extends GlobalSettings {
         "bjackson", "abc", 3);
     Contact contact4 = new Contact("Babe Ruth", "1234 5th st", "Honolulu, HI", "99999", "555-555-5555", 
         "bruth", "abc", 4);
-    String csvFile = "Products.csv";
+    String csvFile = System.getProperty("user.dir") + "\\app\\Products.csv";
     BufferedReader br = null;
     String line = "";
-    String cvsSplitBy = ",";
     String[] product;
    
     try {
       br = new BufferedReader(new FileReader(csvFile));
       
       while ((line = br.readLine()) != null) {
-        product = line.split(cvsSplitBy);
-        Shoes shoe = new Shoes(product[0], product[1], product[2], product[3], Float.parseFloat(product[4]), 
-            product[5], product[6].charAt(0), product[7]);
-        ProductFormData pdata = new ProductFormData(shoe);
-        ShoeDB.add(pdata);
+        product = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+        if(product.length > 0){
+          Shoes shoe = new Shoes(product[0], product[1], product[2], product[3], Float.parseFloat(product[4]), 
+              product[5], product[6].charAt(0), product[7]);
+          ProductFormData pdata = new ProductFormData(shoe);
+          ShoeDB.add(pdata);
+        }
       }
    
     } catch (FileNotFoundException e) {

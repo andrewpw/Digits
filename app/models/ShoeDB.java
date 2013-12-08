@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import views.formdata.ProductFormData;
@@ -43,6 +44,22 @@ public class ShoeDB {
     List<Shoes> shoeList = new ArrayList<>();
     shoeList.addAll(cdForm.values());
     return shoeList;
+  }
+  
+  public static List<Shoes> getShoeList(String type) {
+    List<Shoes> shoeList = new ArrayList<>();
+    List<Shoes> shoeList2 = new ArrayList<>();
+    shoeList.addAll(cdForm.values());
+    Iterator<Shoes> it = shoeList.iterator();
+    Shoes shoe;
+    while (it.hasNext()){
+      shoe = it.next();
+      System.out.println(shoe.getSex() + shoe.getType());
+      if ((shoe.getSex() + shoe.getType()).equals(type)){
+        shoeList2.add(shoe);
+      }
+    }
+    return shoeList2;
   }
   
   public static void sortBySize() {
