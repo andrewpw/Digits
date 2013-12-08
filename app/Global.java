@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import models.Contact;
 import models.ContactDB;
 import models.ShoeDB;
@@ -18,34 +22,44 @@ public class Global extends GlobalSettings {
         "bjackson", "abc", 3);
     Contact contact4 = new Contact("Babe Ruth", "1234 5th st", "Honolulu, HI", "99999", "555-555-5555", 
         "bruth", "abc", 4);
-    Shoes shoe = new Shoes("Emporio Armani", "Perforated Leather", "Shoes", "Composition:  Calf-skin leather Laser cut, "
-        + "Solid color, Buckle, Lug sole, Visible logo , Round toeline", 995, 
-        "9", 'M', "http://cdn.yoox.biz/44/44556676bj_13_n_f.jpg");
-    Shoes shoe2 = new Shoes("Emporio Armani", "Perforated Leather", "Shoes", "Composition:  Calf-skin leather Laser cut, "
-        + "Solid color, Buckle, Lug sole, Visible logo , Round toeline", 995, 
-        "10", 'M', "http://cdn.yoox.biz/44/44556676bj_13_n_f.jpg");
-    Shoes shoe3 = new Shoes("Emporio Armani", "Perforated Leather", "Shoes", "Composition:  Calf-skin leather Laser cut, "
-        + "Solid color, Buckle, Lug sole, Visible logo , Round toeline", 995, 
-        "11", 'M', "http://cdn.yoox.biz/44/44556676bj_13_n_f.jpg");
-    Shoes shoe4 = new Shoes("Emporio Armani", "Perforated Leather", "Shoes", "Composition:  Calf-skin leather Laser cut, "
-        + "Solid color, Buckle, Lug sole, Visible logo , Round toeline", 995, 
-        "12", 'M', "http://cdn.yoox.biz/44/44556676bj_13_n_f.jpg");
+    String csvFile = "Products.csv";
+    BufferedReader br = null;
+    String line = "";
+    String cvsSplitBy = ",";
+    String[] product;
+   
+    try {
+      br = new BufferedReader(new FileReader(csvFile));
+      
+      while ((line = br.readLine()) != null) {
+        product = line.split(cvsSplitBy);
+        Shoes shoe = new Shoes(product[0], product[1], product[2], product[3], Float.parseFloat(product[4]), 
+            product[5], product[6].charAt(0), product[7]);
+        ProductFormData pdata = new ProductFormData(shoe);
+        ShoeDB.add(pdata);
+      }
+   
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      if (br != null) {
+        try {
+          br.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
     ContactFormData data = new ContactFormData(contact);
     ContactFormData data2 = new ContactFormData(contact2);
     ContactFormData data3 = new ContactFormData(contact3);
     ContactFormData data4 = new ContactFormData(contact4);
-    ProductFormData pdata = new ProductFormData(shoe);
-    ProductFormData pdata2 = new ProductFormData(shoe2);
-    ProductFormData pdata3 = new ProductFormData(shoe3);
-    ProductFormData pdata4 = new ProductFormData(shoe4);
     ContactDB.add(data);
     ContactDB.add(data2);
     ContactDB.add(data3);
     ContactDB.add(data4);
-    ShoeDB.add(pdata);
-    ShoeDB.add(pdata2);
-    ShoeDB.add(pdata3);
-    ShoeDB.add(pdata4);
   }
 
 }
