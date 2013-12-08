@@ -11,8 +11,13 @@
        </div>
      </div>
      <div class ="col-md-4">
-       <a href="@routes.Application.shoppingCart(shoe.getName())" class="btn btn-inverse btn-lg" 
-       role="button">Add to Shopping Cart</a>
+       @if(loggedIn == true){
+         <a href="@routes.Application.shoppingCart(shoe.getName())" class="btn btn-inverse btn-lg" 
+         role="button">Add to Shopping Cart</a>
+       } else {
+         <a href="#" class="btn btn-inverse btn-lg" 
+         role="button">Login to add items to shopping cart</a>
+       }
      </div>
     </div>
     <div class = "row">

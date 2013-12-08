@@ -1,4 +1,4 @@
-@(types: String, contact: Contact, i: Integer)
+@(types: String, contact: Contact, sort: Integer)
 @import bootstrap3.navbar
 
 @Main("") {
@@ -10,69 +10,63 @@
    <div class="row">
   </div>
    <div class = "container">
-   @if(types.equals("MensShoes")){
-      
-    }
-    @if(types.equals("MensShirts")){
-      
-    } 
-    @if(types.equals("MensPants")){
-      
-    } 
-    @if(types.equals("MensHats")){
-  
-    } 
-    @if(types.equals("WomensShoes")){
-      
-    } 
-    @if(types.equals("WomensShirts")){
-      
-    } 
-    @if(types.equals("WomensPants")){
-      
-    } 
-    @if(types.equals("WomensHats")){
-  
-    } 
-    @if(types.equals("KidsShoes")){
-      
-    } 
-    @if(types.equals("KidsShirts")){
-      
-    } 
-    @if(types.equals("KidsPants")){
-      
-    } 
-    @if(types.equals("KidsHats")){
-  
-    }
-    @System.out.println(types)
-   @for((shoe, index) <- ShoeDB.getShoeList(types).zipWithIndex){
-   @if(index % 3 == 0){
-    <div class="row">
-    <div class="col-md-3 side">
-      <div class="navbar navbar-inverse" role="navigation">
-          <div class="collapse navbar-collapse">
-            <ul class="nav nav-pills nav-stacked">
-              <li class ="disabled"><a href="#">Sort By</a></li>
-              <li><a href="@routes.Application.shoes("sort")">Size</a></li>
-              <li><a href="@routes.Application.shoes("price")">Price</a></li>
-              <li><a href="@routes.Application.shoes("brand")">Brand</a></li>
-            </ul>
+   @if(sort == 0){
+     @for((shoe, index) <- ShoeDB.getShoeList(types).zipWithIndex){
+       @if(index % 3 == 0){
+        <div class="row">
+        <div class="col-md-3 side">
+          <div class="navbar navbar-inverse" role="navigation">
+              <div class="collapse navbar-collapse">
+                <ul class="nav nav-pills nav-stacked">
+                  <li class ="disabled"><a href="#">Sort By</a></li>
+                  <li><a href="@routes.Application.sort(types)">Size</a></li>
+                </ul>
+              </div>
           </div>
+        </div>
+       }
+     <div class="col-md-3">
+        <div class="well">
+        <p>Name: @shoe.getName()</p>
+        <a href = "@routes.Application.display(shoe.getName())">
+          <div class ="img-one" style = "background-image: 
+          url(@shoe.getUrl())"></div>
+        </a>
+        <p>size: @shoe.getSize()</p>
+        </div>
       </div>
-    </div>
-   }
-   <div class="col-md-3">
-      <div class="well">
-      <a href = "@routes.Application.display(shoe.getName())">
-        <div class ="img-one" style = "background-image: 
-        url(@shoe.getUrl())"></div>
-      </a>
+      @if(index % 3 == 2){
+       </div>
+      }
+    }
+  } else {
+   @for((shoe, index) <- ShoeDB.getSortList(types).zipWithIndex){
+       @if(index % 3 == 0){
+        <div class="row">
+        <div class="col-md-3 side">
+          <div class="navbar navbar-inverse" role="navigation">
+              <div class="collapse navbar-collapse">
+                <ul class="nav nav-pills nav-stacked">
+                  <li class ="disabled"><a href="#">Sort By</a></li>
+                  <li><a href="@routes.Application.sort(types)">Size</a></li>
+                </ul>
+              </div>
+          </div>
+        </div>
+       }
+     <div class="col-md-3">
+        <div class="well">
+        <p>Name: @shoe.getName()</p>
+        <a href = "@routes.Application.display(shoe.getName())">
+          <div class ="img-one" style = "background-image: 
+          url(@shoe.getUrl())"></div>
+        </a>
+        <p>size: @shoe.getSize()</p>
+        </div>
       </div>
-    </div>
-    @if(index % 3 == 2){
-     </div>
+      @if(index % 3 == 2){
+       </div>
+      }
     }
   }
     

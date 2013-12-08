@@ -12,7 +12,6 @@
   </div>
   </div>
   @for(shoe <- ShoppingCartDB.getShoppingList()){
-   @System.out.println(shoe.getIndex())
    @if(shoe.getIndex() == 0){
     <div class="row">
    }

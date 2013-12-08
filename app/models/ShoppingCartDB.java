@@ -21,4 +21,8 @@ public class ShoppingCartDB {
     shoppingList.addAll(cdForm.values());
     return shoppingList;
   }
+
+  public static void delete() {
+    cdForm = new HashMap<>();
+  }
 }

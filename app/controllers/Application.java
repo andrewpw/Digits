@@ -33,6 +33,7 @@ public class Application extends Controller {
   }
   
   public static Result checkout() {
+    ShoppingCartDB.delete();
     return ok(Index.render(loggedIn, user));
   }
   
@@ -51,16 +52,12 @@ public class Application extends Controller {
   }
   
   public static Result shoes(String type) {
-    if(type.equals("sort")){
-      ShoeDB.sortBySize();
-    }
-    else if(type.equals("price")){
-      ShoeDB.sortByPrice();
-    }
-    else if(type.equals("brand")){
-      ShoeDB.sortByBrand();
-    }
     return ok(Shoes.render(type, ContactDB.getContact(user), 0));
+  }
+  
+  public static Result sort(String type) {
+    ShoeDB.sortBySize();
+    return ok(Shoes.render(type, ContactDB.getContact(user), 1));
   }
   
   public static Result display(String name) {
