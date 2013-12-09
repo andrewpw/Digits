@@ -20,8 +20,9 @@ public class ContactDB {
    * @param fData the contact data form with the data
    * @return contact the new contact
    */
+  static Timing time = new Timing();
   public static void add(ContactFormData fData) {
-    
+    time.start();
     Contact contact = null;
     
     if (Contact.find().where().eq("username", fData.username).findUnique() == null) {
@@ -60,6 +61,8 @@ public class ContactDB {
       contact.setTel(fData.telephone); 
       contact.save();
     }
+    time.stop();
+    System.out.println(time.print("Add Contact"));
   }
   
   /**
@@ -93,10 +96,13 @@ public class ContactDB {
   }
 
   public static Contact getContact(String username) {
+    time.start();
     Contact contact = Contact.find().where().eq("username", username).findUnique();
     if (contact == null) {
       return null;
     }
+    time.stop();
+    System.out.println(time.print("Get Contact"));
     return contact;
   }
 }
