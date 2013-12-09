@@ -14,7 +14,7 @@ import views.formdata.ContactFormData;
 public class ContactDB {
 
   private static Map<String, Contact> cdForm = new HashMap<>();
-  
+  static Timing time = new Timing();
   /**
    * adds a new contact to the list or updates the pre-existing contact if there is one.
    * @param fData the contact data form with the data
@@ -22,6 +22,7 @@ public class ContactDB {
    */
   public static Contact add(ContactFormData fData) {
     
+    time.start();
     Contact contact;
     
     if (fData.id == 0) {
@@ -35,6 +36,8 @@ public class ContactDB {
           fData.password, fData.id);
       cdForm.put(fData.username, contact);
     }
+    time.stop();
+    System.out.println(time.print("Contact.add"));
     return contact;
   }
   
@@ -68,10 +71,13 @@ public class ContactDB {
   }
 
   public static Contact getContact(String username) {
+    time.start();
     Contact contact = cdForm.get(username);
     if (contact == null) {
       return null;
     }
+    time.stop();
+    System.out.println(time.print("getContact"));
     return contact;
   }
 }

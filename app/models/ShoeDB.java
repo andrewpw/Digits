@@ -14,6 +14,7 @@ import views.formdata.ProductFormData;
 public class ShoeDB {
 
   private static Map<String, Shoes> cdForm = new HashMap<>();
+  static Timing time = new Timing();
   
   public static Shoes add(ProductFormData fData) {
     
@@ -52,7 +53,6 @@ public class ShoeDB {
     try {
       int s = Integer.parseInt(size1);
       int s2 = Integer.parseInt(size2);
-      System.out.println("parsed");
       if (s <= s2){
         return true;
       }
@@ -115,6 +115,8 @@ public class ShoeDB {
   }
   
   public static List<Shoes> getShoeList(String type) {
+    
+    time.start();
     List<Shoes> shoeList = new ArrayList<>();
     List<Shoes> shoeList2 = new ArrayList<>();
     shoeList.addAll(cdForm.values());
@@ -126,10 +128,13 @@ public class ShoeDB {
         shoeList2.add(shoe);
       }
     }
+    time.stop();
+    System.out.println(time.print("GetShoeList"));
     return shoeList2;
   }
   
   public static List<Shoes> getSortList(String type) {
+    time.start();
     List<Shoes> shoeList = new LinkedList<>();
     Object[] inputArray = getShoeList(type).toArray();
     inputArray = mergeSort(inputArray);
@@ -137,6 +142,8 @@ public class ShoeDB {
     for (int j = 0; j < inputArray.length; j++) {
         shoeList.add((Shoes)inputArray[j]);
     }
+    time.stop();
+    System.out.println(time.print("GetSortList"));
     return shoeList;
   }
   
