@@ -11,19 +11,19 @@
        role="button">Checkout</a>
   </div>
   </div>
-  @for(shoe <- ShoppingCartDB.getShoppingList()){
-   @if(shoe.getIndex() == 0){
+  @for((product, index) <- ShoppingCartDB.getShoppingList().zipWithIndex){
+   @if(index == 0){
     <div class="row">
    }
    <div class="col-md-4">
       <div class="well">
-      <a href = "@routes.Application.display(shoe.getName())">
+      <a href = "@routes.Application.display(product.getName())">
         <div class ="img-one" style = "background-image: 
-        url('@shoe.getUrl()')"></div>
+        url('@product.getUrl()')"></div>
       </a>
       </div>
     </div>
-    @if(shoe.getIndex() == 0){
+    @if(index == 0){
     </div>
    }
   }  

@@ -11,16 +11,16 @@ import java.util.List;
 import java.util.Map;
 import views.formdata.ProductFormData;
 
-public class ShoeDB {
+public class ProductDB {
 
-  private static Map<String, Shoes> cdForm = new HashMap<>();
+  private static Map<String, Product> cdForm = new HashMap<>();
   
-  public static Shoes add(ProductFormData fData) {
+  public static Product add(ProductFormData fData) {
     
-    Shoes shoe;
+    Product shoe;
     int i = 0;
     
-    shoe = new Shoes(fData.brand, fData.model, fData.type, fData.description, fData.price, fData.size,
+    shoe = new Product(fData.brand, fData.model, fData.type, fData.description, fData.price, fData.size,
           fData.sex, fData.url);
     if(cdForm.size() % 3 == 0){
       i = 0;
@@ -28,21 +28,20 @@ public class ShoeDB {
     else {
       i = 1;
     }
-    shoe.setIndex(i);
       cdForm.put(fData.brand + fData.model + fData.size, shoe);
     return shoe;
   }
   
-  public static Shoes getShoes(String name) {
-    Shoes shoe = cdForm.get(name);
+  public static Product getShoes(String name) {
+    Product shoe = cdForm.get(name);
     if (shoe == null) {
       return null;
     }
     return shoe;
   }
 
-  public static List<Shoes> getShoeList() {
-    List<Shoes> shoeList = new ArrayList<>();
+  public static List<Product> getShoeList() {
+    List<Product> shoeList = new ArrayList<>();
     shoeList.addAll(cdForm.values());
     return shoeList;
   }
@@ -52,7 +51,6 @@ public class ShoeDB {
     try {
       int s = Integer.parseInt(size1);
       int s2 = Integer.parseInt(size2);
-      System.out.println("parsed");
       if (s <= s2){
         return true;
       }
@@ -114,12 +112,12 @@ public class ShoeDB {
     }
   }
   
-  public static List<Shoes> getShoeList(String type) {
-    List<Shoes> shoeList = new ArrayList<>();
-    List<Shoes> shoeList2 = new ArrayList<>();
+  public static List<Product> getShoeList(String type) {
+    List<Product> shoeList = new ArrayList<>();
+    List<Product> shoeList2 = new ArrayList<>();
     shoeList.addAll(cdForm.values());
-    Iterator<Shoes> it = shoeList.iterator();
-    Shoes shoe;
+    Iterator<Product> it = shoeList.iterator();
+    Product shoe;
     while (it.hasNext()){
       shoe = it.next();
       if ((shoe.getSex() + shoe.getType()).equals(type)){
@@ -129,13 +127,13 @@ public class ShoeDB {
     return shoeList2;
   }
   
-  public static List<Shoes> getSortList(String type) {
-    List<Shoes> shoeList = new LinkedList<>();
+  public static List<Product> getSortList(String type) {
+    List<Product> shoeList = new LinkedList<>();
     Object[] inputArray = getShoeList(type).toArray();
     inputArray = mergeSort(inputArray);
 
     for (int j = 0; j < inputArray.length; j++) {
-        shoeList.add((Shoes)inputArray[j]);
+        shoeList.add((Product)inputArray[j]);
     }
     return shoeList;
   }
@@ -162,7 +160,7 @@ public class ShoeDB {
       i = li = ri = 0;
       while ( i < totElem) {
           if ((li < l.length) && (ri<r.length)) {
-              if (compareSize(((Shoes)l[li]).getSize(), ((Shoes)r[ri]).getSize())) {
+              if (compareSize(((Product)l[li]).getSize(), ((Product)r[ri]).getSize())) {
                   a[i] = l[li];
                   i++;
                   li++;
@@ -195,17 +193,17 @@ public class ShoeDB {
   }
   
   public static void sortBySize() {
-    List<Shoes> shoeList = new ArrayList<>();
+    List<Product> shoeList = new ArrayList<>();
     shoeList.addAll(cdForm.values());
   }
 
   public static void sortByPrice() {
-    List<Shoes> shoeList = new ArrayList<>();
+    List<Product> shoeList = new ArrayList<>();
     shoeList.addAll(cdForm.values());
   }
 
   public static void sortByBrand() {
-    List<Shoes> shoeList = new ArrayList<>();
+    List<Product> shoeList = new ArrayList<>();
     shoeList.addAll(cdForm.values());
   }
 }

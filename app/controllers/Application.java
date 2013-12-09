@@ -2,7 +2,8 @@ package controllers;
 
 import java.util.Map;
 import models.ContactDB;
-import models.ShoeDB;
+import models.Product;
+import models.ProductDB;
 import models.ShoppingCartDB;
 import play.data.Form;
 import play.mvc.Controller;
@@ -56,12 +57,12 @@ public class Application extends Controller {
   }
   
   public static Result sort(String type) {
-    ShoeDB.sortBySize();
+    ProductDB.sortBySize();
     return ok(Shoes.render(type, ContactDB.getContact(user), 1));
   }
   
   public static Result display(String name) {
-    models.Shoes shoe = ShoeDB.getShoes(name);
+    Product shoe = ProductDB.getShoes(name);
     return ok(Display.render(loggedIn, user, shoe));
   }
   

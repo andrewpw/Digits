@@ -1,13 +1,21 @@
 package models;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import play.db.ebean.Model;
+
 /**
  * Provides a model for Contact data.
  * @author Andrew
  *
  */
-public class Contact {
+@Entity
+public class Contact extends Model{
+  private static final long serialVersionUID = 1L;
 
-  private long id;
+  @Id
+  private long id = -1;
   private String name;
   private String telephone;
   private String telHref;
@@ -16,6 +24,8 @@ public class Contact {
   private String zipcode;
   private String username;
   private String password;
+  @OneToOne (mappedBy = "contact")
+  private ShoppingCart shoppingCart;
   
   /**
    * Public constructor for setting the first name last name and telephone number.
@@ -32,9 +42,9 @@ public class Contact {
     this.city = city;
     this.zipcode = zipcode;
     this.telephone = telephone;
-    this.id = id;
     this.username = username;
     this.password = password;
+    System.out.println(this.id);
   }
 
   /**
@@ -45,6 +55,9 @@ public class Contact {
     return id;
   }
 
+  public void setId(long id) {
+    this.id = id;
+  }
   /**
    * returns name.
    * @return name
@@ -129,4 +142,8 @@ public class Contact {
     this.password = password;
   }
   
+  public static Finder<Long, Contact> find(){
+    
+    return new Finder<Long, Contact>(Long.class, Contact.class);
+  }
 }

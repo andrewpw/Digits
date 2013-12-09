@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.avaje.ebean.Ebean;
 import views.formdata.ContactFormData;
 
 /**
@@ -12,30 +13,31 @@ import views.formdata.ContactFormData;
  *
  */
 public class ContactDB {
-
-  private static Map<String, Contact> cdForm = new HashMap<>();
   
   /**
    * adds a new contact to the list or updates the pre-existing contact if there is one.
    * @param fData the contact data form with the data
    * @return contact the new contact
    */
-  public static Contact add(ContactFormData fData) {
+  public static void add(ContactFormData fData) {
     
     Contact contact;
     
-    if (fData.id == 0) {
-      long id = cdForm.size() + 1;
+    if (fData.id == -1) {
+      long id = 1;
       contact = new Contact(fData.name, fData.address, fData.city, fData.zipcode, fData.telephone, fData.username,
           fData.password, id);
-      cdForm.put(fData.username, contact);
+      contact.save();
     }
     else {
-      contact = new Contact(fData.name, fData.address, fData.city, fData.zipcode, fData.telephone, fData.username,
-          fData.password, fData.id);
-      cdForm.put(fData.username, contact);
+      contact = Contact.find().byId(fData.id);
+      contact.setName(fData.name);
+      contact.setAddress(fData.address); 
+      contact.setCity(fData.city);
+      contact.setZipcode(fData.zipcode); 
+      contact.setTel(fData.telephone); 
+      contact.save();
     }
-    return contact;
   }
   
   /**
@@ -43,7 +45,8 @@ public class ContactDB {
    * @param username the id of the contact to delete
    */
   public static void deleteContact(String username) {
-    cdForm.remove(username);
+    Contact delContact = Contact.find().where().eq("username", username).findUnique();
+    Ebean.delete(delContact);
   }
   
   /**
@@ -51,7 +54,7 @@ public class ContactDB {
    * @return cdForm the list of contacts
    */
   public static List<Contact> getContacts() {
-    return new ArrayList<>(cdForm.values());
+    return new ArrayList<>(Contact.find().all());
   }
   
   /**
@@ -60,7 +63,7 @@ public class ContactDB {
    * @return contact the Contact that was searched for
    */
   public static Contact getContact(long id) {
-    Contact contact = cdForm.get(id);
+    Contact contact = Contact.find().byId(id);
     if (contact == null) {
       throw new RuntimeException("No contact with this ID exists: " + id);
     }
@@ -68,7 +71,7 @@ public class ContactDB {
   }
 
   public static Contact getContact(String username) {
-    Contact contact = cdForm.get(username);
+    Contact contact = Contact.find().where().eq("username", username).findUnique();
     if (contact == null) {
       return null;
     }

@@ -1,7 +1,17 @@
 package models;
 
-public class Shoes {
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import play.db.ebean.Model;
 
+@Entity
+public class Product extends Model{
+  
+  private static final long serialVersionUID = 1L;
+
+  @Id
+  private long id;
   private String brand;
   private String model;
   private String type;
@@ -10,10 +20,11 @@ public class Shoes {
   private String size;
   private char sex;
   private String url;
-  private int index;
   
+  @ManyToOne
+  private ShoppingCart shoppingCart;
   
-  public Shoes(String brand, String model, String type, String description, float price, String size, char sex, 
+  public Product(String brand, String model, String type, String description, float price, String size, char sex, 
       String url){
     this.brand = brand;
     this.model = model;
@@ -65,16 +76,13 @@ public class Shoes {
     return url;
   }
   
-  public int getIndex() {
-    return index;
-  }
-  
-  public void setIndex(int i) {
-    index = i;
-  }
   
   public String getName(){
     return brand + model + size;
   }
   
+  public static Finder<Long, Product> find(){
+    
+    return new Finder<Long, Product>(Long.class, Product.class);
+  }
 }

@@ -7,17 +7,17 @@ import java.util.Map;
 
 public class ShoppingCartDB {
 
-  private static Map<String, Shoes> cdForm = new HashMap<>();
+  private static Map<String, Product> cdForm = new HashMap<>();
   
-  public static Shoes add(String name) {
+  public static Product add(String name) {
     if(!(name.equals(""))){
-      cdForm.put(name, ShoeDB.getShoes(name)); 
+      cdForm.put(name, ProductDB.getShoes(name)); 
     }
     return null;
   }
   
-  public static List<Shoes> getShoppingList() {
-    List<Shoes> shoppingList = new ArrayList<>();
+  public static List<Product> getShoppingList() {
+    List<Product> shoppingList = new ArrayList<>();
     shoppingList.addAll(cdForm.values());
     return shoppingList;
   }

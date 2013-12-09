@@ -1,5 +1,5 @@
 package views.formdata;
-import models.Shoes;
+import models.Product;
 
 
 /**
@@ -24,7 +24,7 @@ public class ProductFormData {
   public ProductFormData(){
   }
   
-  public ProductFormData(Shoes shoes){
+  public ProductFormData(Product shoes){
     this.brand = shoes.getBrand();
     this.model = shoes.getModel();
     this.type = shoes.getType();

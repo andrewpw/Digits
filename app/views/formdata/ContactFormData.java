@@ -17,7 +17,7 @@ public class ContactFormData {
   /**The telephone number.*/
   public String telephone = "";
   /**The id number.*/
-  public long id;
+  public long id = -1;
   /**The address.*/
   public String address;
   /**The city.*/

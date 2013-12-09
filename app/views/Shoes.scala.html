@@ -11,7 +11,7 @@
   </div>
    <div class = "container">
    @if(sort == 0){
-     @for((shoe, index) <- ShoeDB.getShoeList(types).zipWithIndex){
+     @for((product, index) <- ProductDB.getShoeList(types).zipWithIndex){
        @if(index % 3 == 0){
         <div class="row">
         <div class="col-md-3 side">
@@ -27,12 +27,12 @@
        }
      <div class="col-md-3">
         <div class="well">
-        <p>Name: @shoe.getName()</p>
-        <a href = "@routes.Application.display(shoe.getName())">
+        <p>Name: @product.getName()</p>
+        <a href = "@routes.Application.display(product.getName())">
           <div class ="img-one" style = "background-image: 
-          url(@shoe.getUrl())"></div>
+          url(@product.getUrl())"></div>
         </a>
-        <p>size: @shoe.getSize()</p>
+        <p>size: @product.getSize()</p>
         </div>
       </div>
       @if(index % 3 == 2){
@@ -40,7 +40,7 @@
       }
     }
   } else {
-   @for((shoe, index) <- ShoeDB.getSortList(types).zipWithIndex){
+   @for((product, index) <- ProductDB.getSortList(types).zipWithIndex){
        @if(index % 3 == 0){
         <div class="row">
         <div class="col-md-3 side">
@@ -56,12 +56,12 @@
        }
      <div class="col-md-3">
         <div class="well">
-        <p>Name: @shoe.getName()</p>
-        <a href = "@routes.Application.display(shoe.getName())">
+        <p>Name: @product.getName()</p>
+        <a href = "@routes.Application.display(product.getName())">
           <div class ="img-one" style = "background-image: 
-          url(@shoe.getUrl())"></div>
+          url(@product.getUrl())"></div>
         </a>
-        <p>size: @shoe.getSize()</p>
+        <p>size: @product.getSize()</p>
         </div>
       </div>
       @if(index % 3 == 2){
