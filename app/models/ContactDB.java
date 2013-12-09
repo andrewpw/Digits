@@ -24,9 +24,8 @@ public class ContactDB {
     Contact contact;
     
     if (fData.id == -1) {
-      long id = 1;
       contact = new Contact(fData.name, fData.address, fData.city, fData.zipcode, fData.telephone, fData.username,
-          fData.password, id);
+          fData.password);
       contact.save();
     }
     else {

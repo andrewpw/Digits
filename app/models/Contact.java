@@ -44,7 +44,20 @@ public class Contact extends Model{
     this.telephone = telephone;
     this.username = username;
     this.password = password;
+    this.id = id;
     System.out.println(this.id);
+  }
+  
+  public Contact(String name, String address, String city, String zipcode, String telephone, String username,
+      String password) {
+    this.name = name;
+    this.address = address;
+    this.city = city;
+    this.zipcode = zipcode;
+    this.telephone = telephone;
+    this.username = username;
+    this.password = password;
+    System.out.println("Hey " + this.id);
   }
 
   /**
