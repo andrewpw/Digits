@@ -1,14 +1,19 @@
 package models;
 
+import java.sql.Timestamp;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
 import play.db.ebean.Model;
 
 @Entity
 public class Product extends Model{
   
   private static final long serialVersionUID = 1L;
+  
+  @Version
+  public Timestamp lastUpdate;
 
   @Id
   private long id;
@@ -89,5 +94,9 @@ public class Product extends Model{
   public static Finder<Long, Product> find(){
     
     return new Finder<Long, Product>(Long.class, Product.class);
+  }
+  
+  public void setShoppingCart(ShoppingCart cart){
+    this.shoppingCart = cart; 
   }
 }

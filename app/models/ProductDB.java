@@ -123,7 +123,9 @@ public class ProductDB {
   }
   
   public static List<Product> getSortList(String type) {
-    return Product.find().where().eq("type", type).orderBy().desc("size").findList();
+    String sex = type.substring(0, 1);
+    System.out.println(sex);
+    return Product.find().where().eq("type", type.substring(1)).eq("sex", sex).orderBy().desc("size").findList();
   }
     /*
     List<Product> shoeList = new LinkedList<>();

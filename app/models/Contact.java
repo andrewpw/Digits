@@ -1,5 +1,7 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -25,7 +27,7 @@ public class Contact extends Model{
   private String username;
   private String password;
   @OneToOne (mappedBy = "contact")
-  private ShoppingCart shoppingCart;
+  private ShoppingCart shoppingCart = new ShoppingCart();
   
   /**
    * Public constructor for setting the first name last name and telephone number.
@@ -157,5 +159,19 @@ public class Contact extends Model{
   public static Finder<Long, Contact> find(){
     
     return new Finder<Long, Contact>(Long.class, Contact.class);
+  }
+  
+  public ShoppingCart getCart() {
+    return this.shoppingCart;
+  }
+  
+  public boolean addToCart(Product product){
+    if (!Product.find().where().eq("shopping_cart_id", this.shoppingCart.getId()).findList().contains(product)){
+      this.shoppingCart.addProduct(product);
+      product.setShoppingCart(this.shoppingCart);
+      ShoppingCartDB.add(this.shoppingCart, product);
+      return true;
+    }
+    return false;
   }
 }

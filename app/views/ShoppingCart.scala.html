@@ -11,7 +11,7 @@
        role="button">Checkout</a>
   </div>
   </div>
-  @for((product, index) <- ShoppingCartDB.getShoppingList().zipWithIndex){
+  @for((product, index) <- ShoppingCartDB.getShoppingList(user).zipWithIndex){
    @if(index == 0){
     <div class="row">
    }
@@ -19,7 +19,7 @@
       <div class="well">
       <a href = "@routes.Application.display(product.getName())">
         <div class ="img-one" style = "background-image: 
-        url('@product.getUrl()')"></div>
+        url(@product.getUrl())"></div>
       </a>
       </div>
     </div>

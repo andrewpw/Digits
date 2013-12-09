@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.Map;
+import models.Contact;
 import models.ContactDB;
 import models.Product;
 import models.ProductDB;
@@ -34,12 +35,19 @@ public class Application extends Controller {
   }
   
   public static Result checkout() {
-    ShoppingCartDB.delete();
+    ShoppingCartDB.delete(user);
     return ok(Index.render(loggedIn, user));
   }
   
   public static Result shoppingCart(String name) {
-    ShoppingCartDB.add(name);
+    if(!name.equals("")){
+      Contact contact = Contact.find().where().eq("username", user).findUnique();
+      Product product = Product.find().where().eq("name", name).findUnique();
+      if(contact.addToCart(product) == false){
+        flash("error", "Sorry this item is already in someone's shopping cart");
+        return ok(Shoes.render(product.getType(), contact, 0));
+      }
+    }
     return ok(ShoppingCart.render(loggedIn, user));
   }
   

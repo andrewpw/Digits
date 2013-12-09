@@ -22,12 +22,13 @@ create table product (
   brand                     varchar(255),
   model                     varchar(255),
   type                      varchar(255),
-  description               varchar(2000),
+  description               varchar(255),
   price                     float,
   size                      varchar(255),
   sex                       varchar(255),
   url                       varchar(255),
   shopping_cart_id          bigint,
+  last_update               datetime not null,
   constraint pk_product primary key (id))
 ;
 

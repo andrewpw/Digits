@@ -31,6 +31,14 @@ public class ShoppingCart extends Model {
     this.products.add(product);
   }
   
+  public List<Product> getProductList(){
+    return products;
+  }
+  
+  public void deleteAll() {
+    this.products = new ArrayList<>();
+  }
+  
   public void deleteProduct(Product product) {
     this.products.remove(product);
   }
@@ -38,6 +46,18 @@ public class ShoppingCart extends Model {
   public static Finder<Long, ShoppingCart> find(){
     
     return new Finder<Long, ShoppingCart>(Long.class, ShoppingCart.class);
+  }
+  
+  public void setContact(Contact contact){
+    this.contact = contact;
+  }
+  
+  public Contact getContact(){
+    return contact;
+  }
+  
+  public long getId(){
+    return id;
   }
 
 }

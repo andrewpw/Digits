@@ -46,12 +46,14 @@ public class Global extends GlobalSettings {
           if(product.length > 0){
             Product shoe = new Product(product[0], product[1], product[2], product[3], Float.parseFloat(product[4]), 
                 product[5], product[6].charAt(0), product[7]);
-            ProductFormData pdata = new ProductFormData(shoe);
-            ProductDB.add(pdata);
+            if(Product.find().where().eq("name", shoe.getName()).findList().isEmpty()){
+              ProductFormData pdata = new ProductFormData(shoe);
+              ProductDB.add(pdata);
+            }
           }
         }
      
-      } catch (FileNotFoundException e) {
+      } catch (FileNotFoundException e) { 
         e.printStackTrace();
       } catch (IOException e) {
         e.printStackTrace();
