@@ -36,7 +36,7 @@ public class ShoppingCart extends Model {
   }
   
   public void deleteAll() {
-    this.products = new ArrayList<>();
+    this.products = new ArrayList<>(); 
   }
   
   public void deleteProduct(Product product) {

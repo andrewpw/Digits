@@ -24,7 +24,7 @@ public class ContactDB {
     
     Contact contact = null;
     
-    if (Contact.find().where().eq("username", fData.username) != null) {
+    if (Contact.find().where().eq("username", fData.username).findUnique() == null) {
       System.out.println("yes");
       if(fData.name == "Bob Barker"){
         contact = new Contact(fData.name, fData.address, fData.city, fData.zipcode, fData.telephone, fData.username,
@@ -44,7 +44,7 @@ public class ContactDB {
       }
       if(Contact.find().byId((long) 4) != null){
       contact = new Contact(fData.name, fData.address, fData.city, fData.zipcode, fData.telephone, fData.username,
-          fData.password, count++);
+          fData.password, Contact.find().findRowCount() + 1);
       }
       contact.getCart().setContact(contact);
       contact.save();   

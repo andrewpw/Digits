@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -9,6 +10,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import com.avaje.ebean.Ebean;
+import com.avaje.ebean.SqlQuery;
+import com.avaje.ebean.SqlRow;
 import views.formdata.ProductFormData;
 
 public class ProductDB {
@@ -123,9 +127,26 @@ public class ProductDB {
   }
   
   public static List<Product> getSortList(String type) {
-    String sex = type.substring(0, 1);
-    System.out.println(sex);
-    return Product.find().where().eq("type", type.substring(1)).eq("sex", sex).orderBy().desc("size").findList();
+    String sql = "SELECT name FROM product WHERE type='" + type.substring(1) + "' AND sex='" + type.substring(0, 1)
+        + "' ORDER BY (CASE size WHEN '6' THEN 1 WHEN '7' THEN 2 WHEN '8' "
+        + "THEN 3 WHEN '9' THEN 4 WHEN '10' THEN 5 WHEN '11' THEN 5 WHEN '12' THEN 7 WHEN '13' THEN 8 WHEN '14' THEN 9"
+        + " WHEN 'S' THEN 10 WHEN 'M' THEN 11 WHEN 'L' THEN 12 WHEN 'XL' THEN 13 WHEN 'XXL' THEN 14"
+        + " WHEN 'XXXL' THEN 15 WHEN 'XXXXL' THEN 16 ELSE 100 END) ASC";
+
+    
+    SqlQuery sqlQuery = Ebean.createSqlQuery(sql);
+    //sqlQuery.setParameter("sex", type.substring(0, 1));
+    //sqlQuery.setParameter("type", type.substring(1));
+    List<SqlRow> rows = sqlQuery.findList();
+    List<Product> prodList = new ArrayList<>();
+    Object[] sArray;
+    Iterator<SqlRow> it = rows.iterator();
+    while (it.hasNext()){
+      sArray = it.next().values().toArray();
+      System.out.println(sArray[0].toString());
+      prodList.add(Product.find().where().eq("name",sArray[0].toString()).findUnique());
+    }
+    return prodList;
   }
     /*
     List<Product> shoeList = new LinkedList<>();
