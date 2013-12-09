@@ -32,37 +32,38 @@ public class Global extends GlobalSettings {
       ContactDB.add(data3);
       ContactDB.add(data4);
     }
-    String csvFile = System.getProperty("user.dir") + "\\app\\Products.csv";
-    BufferedReader br = null;
-    String line = "";
-    String[] product;
-   
-    try {
-      br = new BufferedReader(new FileReader(csvFile));
-      
-      while ((line = br.readLine()) != null) {
-        product = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
-        if(product.length > 0){
-          Product shoe = new Product(product[0], product[1], product[2], product[3], Float.parseFloat(product[4]), 
-              product[5], product[6].charAt(0), product[7]);
-          ProductFormData pdata = new ProductFormData(shoe);
-          ProductDB.add(pdata);
+    if(ProductDB.getShoeList().isEmpty()){
+      String csvFile = System.getProperty("user.dir") + "\\app\\Products.csv";
+      BufferedReader br = null;
+      String line = "";
+      String[] product;
+     
+      try {
+        br = new BufferedReader(new FileReader(csvFile));
+        
+        while ((line = br.readLine()) != null) {
+          product = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)");
+          if(product.length > 0){
+            Product shoe = new Product(product[0], product[1], product[2], product[3], Float.parseFloat(product[4]), 
+                product[5], product[6].charAt(0), product[7]);
+            ProductFormData pdata = new ProductFormData(shoe);
+            ProductDB.add(pdata);
+          }
         }
-      }
-   
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    } finally {
-      if (br != null) {
-        try {
-          br.close();
-        } catch (IOException e) {
-          e.printStackTrace();
+     
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+      } catch (IOException e) {
+        e.printStackTrace();
+      } finally {
+        if (br != null) {
+          try {
+            br.close();
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
         }
       }
     }
   }
-
 }

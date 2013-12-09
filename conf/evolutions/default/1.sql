@@ -18,10 +18,11 @@ create table contact (
 
 create table product (
   id                        bigint auto_increment not null,
+  name                      varchar(255),
   brand                     varchar(255),
   model                     varchar(255),
   type                      varchar(255),
-  description               varchar(255),
+  description               varchar(2000),
   price                     float,
   size                      varchar(255),
   sex                       varchar(255),

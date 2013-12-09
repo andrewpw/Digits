@@ -11,7 +11,7 @@ public class ShoppingCartDB {
   
   public static Product add(String name) {
     if(!(name.equals(""))){
-      cdForm.put(name, ProductDB.getShoes(name)); 
+      cdForm.put(name, ProductDB.getProducts(name));  
     }
     return null;
   }

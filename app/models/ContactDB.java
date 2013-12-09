@@ -24,7 +24,8 @@ public class ContactDB {
     
     Contact contact = null;
     
-    if (fData.id == -1) {
+    if (Contact.find().where().eq("username", fData.username) == null) {
+      System.out.println("yes");
       if(fData.name == "Bob Barker"){
         contact = new Contact(fData.name, fData.address, fData.city, fData.zipcode, fData.telephone, fData.username,
             fData.password, 1);
@@ -48,7 +49,8 @@ public class ContactDB {
       contact.save();
     }
     else {
-      contact = Contact.find().byId(fData.id);
+      System.out.println("no");
+      contact = Contact.find().where().eq("username", fData.username).findUnique();
       contact.setName(fData.name);
       contact.setAddress(fData.address); 
       contact.setCity(fData.city);

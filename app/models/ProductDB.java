@@ -12,28 +12,20 @@ import java.util.Map;
 import views.formdata.ProductFormData;
 
 public class ProductDB {
-
-  private static Map<String, Product> cdForm = new HashMap<>();
   
   public static Product add(ProductFormData fData) {
     
     Product shoe;
-    int i = 0;
     
     shoe = new Product(fData.brand, fData.model, fData.type, fData.description, fData.price, fData.size,
           fData.sex, fData.url);
-    if(cdForm.size() % 3 == 0){
-      i = 0;
-    }
-    else {
-      i = 1;
-    }
-      cdForm.put(fData.brand + fData.model + fData.size, shoe);
+    shoe.save();
     return shoe;
   }
   
-  public static Product getShoes(String name) {
-    Product shoe = cdForm.get(name);
+  public static Product getProducts(String name) {
+    System.out.println(name);
+    Product shoe = Product.find().where().eq("name", name).findUnique();
     if (shoe == null) {
       return null;
     }
@@ -41,9 +33,7 @@ public class ProductDB {
   }
 
   public static List<Product> getShoeList() {
-    List<Product> shoeList = new ArrayList<>();
-    shoeList.addAll(cdForm.values());
-    return shoeList;
+    return Product.find().all();
   }
   
   public static boolean compareSize(String size1, String size2) {
@@ -51,7 +41,7 @@ public class ProductDB {
     try {
       int s = Integer.parseInt(size1);
       int s2 = Integer.parseInt(size2);
-      if (s <= s2){
+      if (s <= s2){ 
         return true;
       }
       else {
@@ -113,9 +103,14 @@ public class ProductDB {
   }
   
   public static List<Product> getShoeList(String type) {
-    List<Product> shoeList = new ArrayList<>();
+    String sex = type.substring(0, 1);
+    System.out.println(sex);
+    return Product.find().where().eq("type", type.substring(1)).eq("sex", sex).findList();
+    
+    
+    /*List<Product> shoeList = new ArrayList<>();
     List<Product> shoeList2 = new ArrayList<>();
-    shoeList.addAll(cdForm.values());
+    shoeList.addAll();
     Iterator<Product> it = shoeList.iterator();
     Product shoe;
     while (it.hasNext()){
@@ -124,10 +119,13 @@ public class ProductDB {
         shoeList2.add(shoe);
       }
     }
-    return shoeList2;
+    return shoeList2;*/
   }
   
   public static List<Product> getSortList(String type) {
+    return Product.find().where().eq("type", type).orderBy().desc("size").findList();
+  }
+    /*
     List<Product> shoeList = new LinkedList<>();
     Object[] inputArray = getShoeList(type).toArray();
     inputArray = mergeSort(inputArray);
@@ -190,9 +188,9 @@ public class ProductDB {
       }
       //return a;
   
-  }
+  }*/
   
-  public static void sortBySize() {
+  /*public static void sortBySize() {
     List<Product> shoeList = new ArrayList<>();
     shoeList.addAll(cdForm.values());
   }
@@ -205,5 +203,5 @@ public class ProductDB {
   public static void sortByBrand() {
     List<Product> shoeList = new ArrayList<>();
     shoeList.addAll(cdForm.values());
-  }
+  }*/
 }

@@ -57,12 +57,12 @@ public class Application extends Controller {
   }
   
   public static Result sort(String type) {
-    ProductDB.sortBySize();
+    //ProductDB.sortBySize();
     return ok(Shoes.render(type, ContactDB.getContact(user), 1));
   }
   
   public static Result display(String name) {
-    Product shoe = ProductDB.getShoes(name);
+    Product shoe = ProductDB.getProducts(name);
     return ok(Display.render(loggedIn, user, shoe));
   }
   

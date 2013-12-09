@@ -9,6 +9,7 @@ import models.Product;
  */
 public class ProductFormData {
 
+  public long id = -1;
   public String brand;
   public String model;
   public String type;
@@ -33,6 +34,7 @@ public class ProductFormData {
     this.size = shoes.getSize();
     this.sex = shoes.getSex();
     this.url = shoes.getUrl();
+    this.id = shoes.getId();
   }
   
 }

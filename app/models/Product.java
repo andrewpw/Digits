@@ -12,6 +12,7 @@ public class Product extends Model{
 
   @Id
   private long id;
+  private String name;
   private String brand;
   private String model;
   private String type;
@@ -34,9 +35,13 @@ public class Product extends Model{
     this.size = size;
     this.sex = sex;
     this.url = url;
+    this.name = brand+model+size;
   }
 
-
+  public long getId(){
+    return id;
+  }
+  
   public String getBrand() {
     return brand;
   }
