@@ -27,7 +27,6 @@ public class Global extends GlobalSettings {
       ContactFormData data2 = new ContactFormData(contact2);
       ContactFormData data3 = new ContactFormData(contact3);
       ContactFormData data4 = new ContactFormData(contact4);
-      System.out.println(data.name);
       ContactDB.add(data);
       ContactDB.add(data2);
       ContactDB.add(data3);

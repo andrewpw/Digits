@@ -14,6 +14,7 @@ import views.formdata.ContactFormData;
  */
 public class ContactDB {
   
+  private static int count = 5;
   /**
    * adds a new contact to the list or updates the pre-existing contact if there is one.
    * @param fData the contact data form with the data
@@ -21,11 +22,29 @@ public class ContactDB {
    */
   public static void add(ContactFormData fData) {
     
-    Contact contact;
+    Contact contact = null;
     
     if (fData.id == -1) {
+      if(fData.name == "Bob Barker"){
+        contact = new Contact(fData.name, fData.address, fData.city, fData.zipcode, fData.telephone, fData.username,
+            fData.password, 1);
+      }
+      else if(fData.name == "Bill Murray"){
+        contact = new Contact(fData.name, fData.address, fData.city, fData.zipcode, fData.telephone, fData.username,
+            fData.password, 2);
+      }
+      else if(fData.name == "Bo Jackson"){
+        contact = new Contact(fData.name, fData.address, fData.city, fData.zipcode, fData.telephone, fData.username,
+            fData.password, 3);
+      }
+      else if(fData.name == "Babe Ruth"){
+        contact = new Contact(fData.name, fData.address, fData.city, fData.zipcode, fData.telephone, fData.username,
+            fData.password, 4);
+      }
+      if(Contact.find().byId((long) 4) != null){
       contact = new Contact(fData.name, fData.address, fData.city, fData.zipcode, fData.telephone, fData.username,
-          fData.password);
+          fData.password, count++);
+      }
       contact.save();
     }
     else {
