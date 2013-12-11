@@ -27,6 +27,10 @@ public class Secured extends Security.Authenticator {
   public String getUsername(Context ctx) {
     return ctx.session().get("username");
   }
+  
+  public static String getUsernam(Context ctx) {
+    return ctx.session().get("username");
+  }
 
   /**
    * Instruct authenticator to automatically redirect to login page if unauthorized.

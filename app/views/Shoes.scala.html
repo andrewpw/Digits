@@ -1,9 +1,9 @@
-@(types: String, contact: Contact, sort: Integer)
+@(types: String, contact: Contact, username: String, sort: Integer)
 @import bootstrap3.navbar
 
 @Main("") {
   @if(contact != null){
-   @navbar(contact.getUsername(), true, contact.getName())
+   @navbar(username, true, contact.getName())
   } else {
    @navbar("", false, "")
   }

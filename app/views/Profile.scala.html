@@ -1,8 +1,8 @@
-@(contact: Contact)
+@(contact: Contact, user: String)
 @import bootstrap3.navbar
 
 @Main(contact.getName()) {
-   @navbar(contact.getUsername(), true, contact.getName())
+   @navbar(user, true, contact.getName())
    <div class="row">
   </div>
    <div class="row">

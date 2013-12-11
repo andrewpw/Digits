@@ -17,6 +17,7 @@ import views.html.Profile;
 import views.html.Shoes;
 import views.html.Display;
 import views.html.ShoppingCart;
+import play.mvc.Security;
 
 /**
  * Implements the controllers for this application.
@@ -24,19 +25,20 @@ import views.html.ShoppingCart;
 public class Application extends Controller {
 
   private static boolean loggedIn = false;
-  private static String user = "";
+  private static Contact user;
   private static boolean log = false;
   /**
    * Returns the home page. 
    * @return The resulting home page. 
    */
+  
   public static Result index() {
-    return ok(Index.render(loggedIn, user));
+    return ok(Index.render(Secured.isLoggedIn(ctx()), Secured.getUsernam(ctx())));
   }
   
   public static Result checkout() {
-    ShoppingCartDB.delete(user);
-    return ok(Index.render(loggedIn, user));
+    ShoppingCartDB.delete(Secured.getUsernam(ctx()));
+    return ok(Index.render(Secured.isLoggedIn(ctx()), Secured.getUsernam(ctx())));
   }
   
   public static Result shoppingCart(String name) {
@@ -45,33 +47,33 @@ public class Application extends Controller {
       Product product = Product.find().where().eq("name", name).findUnique();
       if(contact.addToCart(product) == false){
         flash("error", "Sorry this item is already in someone's shopping cart");
-        return ok(Shoes.render(product.getType(), contact, 0));
+        return ok(Shoes.render(product.getType(), contact, Secured.getUsernam(ctx()), 0));
       }
     }
-    return ok(ShoppingCart.render(loggedIn, user));
+    return ok(ShoppingCart.render(Secured.isLoggedIn(ctx()), Secured.getUsernam(ctx())));
   }
   
   public static Result profile(String username) {
     if(username == ""){
       loggedIn = false;
-      user ="";
-      return ok(Index.render(loggedIn, user));  
+      //user ="";
+      return ok(Index.render(Secured.isLoggedIn(ctx()), Secured.getUsernam(ctx())));  
     }
-    return ok(Profile.render(ContactDB.getContact(username)));
+    return ok(Profile.render(ContactDB.getContact(username), Secured.getUsernam(ctx())));
   }
   
   public static Result shoes(String type) {
-    return ok(Shoes.render(type, ContactDB.getContact(user), 0));
+    return ok(Shoes.render(type, ContactDB.getContact(Secured.getUsernam(ctx())), Secured.getUsernam(ctx()), 0));
   }
   
   public static Result sort(String type) {
     //ProductDB.sortBySize();
-    return ok(Shoes.render(type, ContactDB.getContact(user), 1));
+    return ok(Shoes.render(type, ContactDB.getContact(Secured.getUsernam(ctx())), Secured.getUsernam(ctx()), 1));
   }
   
   public static Result display(String name) {
     Product shoe = ProductDB.getProducts(name);
-    return ok(Display.render(loggedIn, user, shoe));
+    return ok(Display.render(Secured.isLoggedIn(ctx()), Secured.getUsernam(ctx()), shoe));
   }
   
   /**
@@ -87,11 +89,11 @@ public class Application extends Controller {
     Form<ContactFormData> formData = Form.form(ContactFormData.class).fill(data);
     if (username.equals("")) {
       log = true;
-      return ok(NewContact.render(formData, user, loggedIn, true));
+      return ok(NewContact.render(formData, Secured.getUsernam(ctx()), Secured.isLoggedIn(ctx()), true));
     }
     else {
       log = false;
-      return ok(NewContact.render(formData, user, loggedIn, false));
+      return ok(NewContact.render(formData, Secured.getUsernam(ctx()), Secured.isLoggedIn(ctx()), false));
     }
   }
   
@@ -103,7 +105,7 @@ public class Application extends Controller {
   public static Result deleteContact(String username) {
     //Form<ContactFormData> formData = Form.form(ContactFormData.class);
     ContactDB.deleteContact(username);
-    return ok(Index.render(false, ""));
+    return ok(Index.render(Secured.isLoggedIn(ctx()), Secured.getUsernam(ctx())));
   }
   
   /**
@@ -115,14 +117,14 @@ public class Application extends Controller {
     Form<ContactFormData> formData = Form.form(ContactFormData.class).bindFromRequest();
     if (formData.hasErrors()) {
       flash("error", "Please correct the form below.");
-      return badRequest(NewContact.render(formData, user, loggedIn, log));
+      return badRequest(NewContact.render(formData, Secured.getUsernam(ctx()), Secured.isLoggedIn(ctx()), log));
     }
     else {
       ContactFormData data = formData.get();
       flash("success",
           String.format("Successfully added %s", data.name));
       ContactDB.add(data);
-      return ok(NewContact.render(formData, user, loggedIn, log));
+      return ok(NewContact.render(formData, Secured.getUsernam(ctx()), Secured.isLoggedIn(ctx()), log));
     }
   }
   
@@ -132,18 +134,19 @@ public class Application extends Controller {
       flash("error", "Please correct the form below.");
       System.out.println("failure");
       System.out.println(formData.errors());
-      return badRequest(Index.render(false, ""));
+      return badRequest(Index.render(Secured.isLoggedIn(ctx()), Secured.getUsernam(ctx())));
     }
     else {
       Login data = formData.get();
       data.loggedIn = true;
-      loggedIn = data.loggedIn;
-      user = data.username;
+      session().clear();
+      session("username", formData.get().username);
+      //user = data.username;
       flash("success",
           String.format("Successfully added %s", data.username));
       //ContactDB.add(data);
       System.out.println("success");
-      return ok(Index.render(loggedIn, data.username));
+      return ok(Index.render(Secured.isLoggedIn(ctx()), Secured.getUsernam(ctx())));
     }
   }
 }
