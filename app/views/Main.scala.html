@@ -4,7 +4,7 @@
 
 <html>
 <head>
-<title>@page Digits</title>
+<title>Digits: @page</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootswatch/3.0.0/slate/bootstrap.min.css">
 
@@ -33,16 +33,17 @@
       <div class="collapse navbar-collapse">
         @if(isLoggedIn){
           <ul class="nav navbar-nav">
-            <li class="@(" active".when(page=="NewContact"))"><a href="@routes.Application.newContact()">New
+            <li class="@(" active".when(page=="NewContact"))"><a id = "newContact" href="@routes.Application.newContact()">New
                 Contact</a></li>
           </ul>
         }
         <ul class="nav navbar-nav navbar-right">
           @if(isLoggedIn) {
             <li><p class="navbar-text">@userInfo.getEmail()</p></li>
-            <li><a href="@routes.Application.logout()">Logout</a></li>
+            <li><a id = "logout" href="@routes.Application.logout()">Logout</a></li>
           } else {
-            <li><a href="@routes.Application.login()">Login</a></li>
+            @System.out.println("Login")
+            <li><a id = "login" href="@routes.Application.login()">Login</a></li>
           }
         </ul>
       </div>

@@ -9,6 +9,7 @@ import views.formdata.ContactFormData;
 public class Global extends GlobalSettings { 
   
   public void onStart(Application app) {
+    
     String adminEmail = Play.application().configuration().getString("digits.admin.email");
     String adminPassword = Play.application().configuration().getString("digits.admin.password");
     UserInfoDB.defineAdmin("Administrator", adminEmail, adminPassword);
