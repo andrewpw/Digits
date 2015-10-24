@@ -9,7 +9,7 @@ A [Play Application](http://playframework.com) that provides a simple form
 Installation
 ------------
 
-Download the zip file, unzip and cd into the file. Invoke the play command and execute the run command to see the application at http://localhost9000
+Download the zip file, unzip and cd into the file. Invoke the play command and execute the "activator start" command to see the application at http://localhost9000
 
 Usage
 -----
