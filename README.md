@@ -1,4 +1,4 @@
-![screenshot](https://raw.github.com/andrewpw/Digits/Attempt-1/doc/Digits.png)
+![screenshot](https://raw.githubusercontent.com/andrewpw/Digits/master/public/images/Digits%20screenshot.png)
 
 Overview
 --------
